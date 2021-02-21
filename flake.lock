@@ -1,0 +1,46 @@
+{
+  "nodes": {
+    "nixos-generators": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1613307374,
+        "narHash": "sha256-iQh1DM1myNm5sTO8Jp3geYzQxMLr1hL6Yam8LHPZiJk=",
+        "owner": "nix-community",
+        "repo": "nixos-generators",
+        "rev": "537b572d3ab1549b26801ba2d5fc023fab963747",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixos-generators",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1610298361,
+        "narHash": "sha256-TDC+xKErrtjgciU4TusjLMs0Gwr3+lM4TqGPmqeOj7Q=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "fe0ee326e0537c1cc3368fc05884f4918da5c8cd",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nixos-generators": "nixos-generators",
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

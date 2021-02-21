@@ -1,0 +1,66 @@
+{pkgs, user, home}:
+let
+  usersFiles = import ./users.nix {inherit pkgs user home;};
+in
+usersFiles ++ [
+  (
+    pkgs.writeTextDir "etc/nix/nix.conf" ''
+      auto-optimise-store = true
+      keep-derivations = true
+      keep-outputs = true
+      sandbox = false
+      experimental-features = nix-command flakes
+    ''
+  )
+  (
+    pkgs.writeTextDir "etc/protocols" ''
+      ip      0       IP              # internet protocol, pseudo protocol number
+      icmp    1       ICMP            # internet control message protocol
+      igmp    2       IGMP            # Internet Group Management
+    ''
+  )
+  (
+    import ./bashrc.nix {inherit pkgs home;}
+  )
+  (
+    pkgs.writeTextDir "${home}/.direnvrc" ''
+      source /share/nix-direnv/direnvrc
+    ''
+  )
+  (
+    pkgs.writeTextDir "${home}/.ghci" ''
+      :set prompt "\ESC[1;32m\x03BB> \ESC[m"
+      :set prompt-cont "\ESC[1;32m > \ESC[m"
+    ''
+  )
+  (
+    pkgs.writeTextDir "${home}/.gitconfig" ''
+      [user]
+        email = jinnah.ali-clarke@outlook.com
+        name = jali-clarke
+      [pull]
+        rebase = false
+    ''
+  )
+  (
+    pkgs.writeTextDir "${home}/.local/share/code-server/User/settings.json" ''
+      {
+        "files.autoSave": "afterDelay",
+        "workbench.editor.enablePreview": false,
+        "explorer.openEditors.visible": 0,
+        "files.eol": "\n",
+        "terminal.integrated.shell.linux": "${pkgs.bashInteractive}/bin/bash",
+        "terminal.integrated.shellArgs.linux": [
+          "--login"
+        ],
+        "workbench.colorTheme": "Default Dark+",
+        "workbench.startupEditor": "none"
+      }
+    ''
+  )
+  (
+    pkgs.writeTextDir "${home}/.profile" ''
+      . "/${home}/.bashrc"
+    ''
+  )
+]

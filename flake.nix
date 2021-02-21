@@ -10,15 +10,15 @@
           pkgs = nixpkgs.legacyPackages.${system};
           nixos-generate = nixos-generators.defaultPackage.${system};
           imageBuilder = import ./dev-env.nix {inherit pkgs nixpkgsPath nixos-generate;};
-
-          prodImage = imageBuilder "latest";
-          stagingImage = imageBuilder "staging";
+          artifactDeployer = import ./artifact-deployer.nix {inherit pkgs;};
         in
         {
-          defaultPackage.${system} = stagingImage;
+          defaultPackage.${system} = self.packages.${system}.stagingArtifactDeployer;
           packages.${system} = {
-            staging = stagingImage;
-            latest = prodImage;
+            stagingImage = imageBuilder "staging";
+            prodImage = imageBuilder "latest";
+            stagingArtifactDeployer = artifactDeployer self.packages.${system}.stagingImage;
+            prodArtifactDeployer = artifactDeployer self.packages.${system}.prodImage;
           };
         };
     in

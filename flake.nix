@@ -15,8 +15,8 @@
         {
           defaultPackage.${system} = self.packages.${system}.stagingArtifactDeployer;
           packages.${system} = {
-            stagingImage = imageBuilder "staging";
-            prodImage = imageBuilder "latest";
+            stagingImage = imageBuilder {deploymentEnv = "staging";};
+            prodImage = imageBuilder {deploymentEnv = "prod";};
             stagingArtifactDeployer = artifactDeployer self.packages.${system}.stagingImage;
             prodArtifactDeployer = artifactDeployer self.packages.${system}.prodImage;
           };

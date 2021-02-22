@@ -1,4 +1,4 @@
-{pkgs, nixpkgsPath, nixos-generate}: imageTag:
+{pkgs, nixpkgsPath, nixos-generate}: {deploymentEnv}:
 let
   user = "root";
   home = "root";
@@ -60,7 +60,7 @@ let
 
   dev-env-image = dockerTools.streamLayeredImage {
     name = imageName;
-    tag = imageTag;
+    tag = if deploymentEnv == "prod" then "latest" else deploymentEnv;
 
     inherit contents;
 
@@ -92,7 +92,7 @@ let
   };
 
   passthru = {
-    imageNameWithTag = "${imageName}:${imageTag}";
+    imageNameWithTag = "${imageName}:${dev-env-image.imageTag}";
   };
 in
 lib.extendDerivation true passthru dev-env-image

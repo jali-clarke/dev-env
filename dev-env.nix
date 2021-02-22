@@ -30,9 +30,9 @@ let
 
   pkgsContents = [
     pkgs.bashInteractive
-    pkgs.bind
     pkgs.coreutils
     pkgs.direnv
+    pkgs.dnsutils
     pkgs.docker
     pkgs.git
     pkgs.gnugrep
@@ -61,7 +61,6 @@ let
   dev-env-image = dockerTools.streamLayeredImage {
     name = imageName;
     tag = imageTag;
-    created = "now";
 
     inherit contents;
 

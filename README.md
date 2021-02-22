@@ -13,14 +13,10 @@ i have a k8s cluster at home and i'd like to have a persistent linux-y dev envir
 * nix with [flakes](https://nixos.wiki/wiki/Flakes) support
 * docker daemon
 * an accessible docker registry `docker.lan:5000`
+* a k8s cluster
 
 ### instructions
 
-for a staging image i.e. testing out changes, do `nix run github:jali-clarke/dev-env#stagingArtifactDeployer`.  for a "prod" image, do `nix run github:jali-clarke/dev-env#prodArtifactDeployer`.
+for a staging image i.e. testing out changes, do `nix run github:jali-clarke/dev-env#stagingInstaller`.  for a "prod" image, do `nix run github:jali-clarke/dev-env#prodInstaller`.
 
-if you've cloned the repo locally and are dev-ing on it, you can do `nix run .#stagingArtifactDeployer` and `nix run .#prodArtifactDeployer` respectively.
-
-## upcoming
-
-* k8s manifest (to be migrated over from private home_ops monorepo)
-* nix derivation for k8s app deployment
+if you've cloned the repo locally and are dev-ing on it, you can do `nix run .#stagingInstaller` and `nix run .#prodInstaller` respectively.

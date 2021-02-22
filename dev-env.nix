@@ -91,7 +91,7 @@ let
   };
 
   passthru = {
-    imageNameWithDeploymentEnv = "${imageName}:${deploymentEnv}";
+    inherit deploymentEnv;
     imageNameWithTag = "${imageName}:${dev-env-image.imageTag}";
   };
 in

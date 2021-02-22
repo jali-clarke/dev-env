@@ -60,7 +60,6 @@ let
 
   dev-env-image = dockerTools.streamLayeredImage {
     name = imageName;
-    tag = if deploymentEnv == "prod" then "latest" else deploymentEnv;
 
     inherit contents;
 
@@ -92,6 +91,7 @@ let
   };
 
   passthru = {
+    imageNameWithDeploymentEnv = "${imageName}:${deploymentEnv}";
     imageNameWithTag = "${imageName}:${dev-env-image.imageTag}";
   };
 in

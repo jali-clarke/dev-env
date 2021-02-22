@@ -6,7 +6,7 @@ let
 
   inherit (pkgs) buildPackages dockerTools lib;
 
-  configFiles = import ./config-files.nix {inherit pkgs user home;};
+  configFiles = import ./config-files.nix {inherit pkgs nixpkgsPath user home;};
   codeServerExts = import ./extensions.nix {inherit pkgs;};
 
   restartPodScript = pkgs.writeScriptBin "restart_pod" ''

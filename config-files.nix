@@ -1,4 +1,4 @@
-{pkgs, user, home}:
+{pkgs, nixpkgsPath, user, home}:
 let
   usersFiles = import ./users.nix {inherit pkgs user home;};
 in
@@ -21,6 +21,25 @@ usersFiles ++ [
   )
   (
     import ./bashrc.nix {inherit pkgs home;}
+  )
+  (
+    pkgs.writeTextDir "${home}/.config/nix/registry.json" ''
+      {
+        "flakes": [
+          {
+            "from": {
+              "id": "nixpkgs",
+              "type": "indirect"
+            },
+            "to": {
+              "path": "${nixpkgsPath}",
+              "type": "path"
+            }
+          }
+        ],
+        "version": 2
+      }
+    ''
   )
   (
     pkgs.writeTextDir "${home}/.direnvrc" ''

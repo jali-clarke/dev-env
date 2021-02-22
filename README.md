@@ -14,6 +14,8 @@ i have a k8s cluster at home and i'd like to have a persistent linux-y dev envir
 * docker daemon
 * an accessible docker registry `docker.lan:5000`
 * a k8s cluster
+* an nfs file server at `192.168.0.103` with appropriate shares set up
+* appropriate credentials
 
 ### instructions
 

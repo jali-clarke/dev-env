@@ -14,8 +14,7 @@ pkgs.writeScriptBin "apply_manifests" ''
     exit 1
   fi
 
-  ${ccat} -E SECRETS_PASSPHRASE -c ${./dev_env_secrets.yaml.cpt} | ${kubectl} apply -f -
-
   ${kubectl} apply -f ${volumesAndNamespaceManifest}
+  ${ccat} -E SECRETS_PASSPHRASE -c ${./dev_env_secrets.yaml.cpt} | ${kubectl} apply -f -
   ${kubectl} apply -f ${deploymentManifest}
 ''

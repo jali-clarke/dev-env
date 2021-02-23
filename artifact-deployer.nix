@@ -1,7 +1,8 @@
 {pkgs}: {dev-env-image}:
+let
+  skopeoFlags = "--insecure-policy --dest-tls-verify=false --tmpdir=/tmp";
+in
 pkgs.writeScriptBin "deploy_artifact" ''
   #!${pkgs.runtimeShell} -xe
-
-  ${pkgs.docker}/bin/docker load -i ${dev-env-image}
-  ${pkgs.docker}/bin/docker push ${dev-env-image.imageNameWithTag}
+  ${pkgs.skopeo}/bin/skopeo copy ${skopeoFlags} docker-archive:${dev-env-image} docker://${dev-env-image.imageNameWithTag}
 ''

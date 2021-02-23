@@ -16,10 +16,10 @@
           defaultPackage.${system} = self.packages.${system}.stagingInstaller;
           packages.${system} = {
             stagingInstaller = installer {
-              dev-env-streamed = imageBuilder {deploymentEnv = "staging";};
+              dev-env-image = imageBuilder {deploymentEnv = "staging";};
             };
             prodInstaller = installer {
-              dev-env-streamed = imageBuilder {deploymentEnv = "prod";};
+              dev-env-image = imageBuilder {deploymentEnv = "prod";};
             };
           };
         };

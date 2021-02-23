@@ -58,27 +58,10 @@ let
   contents = pkgsContents ++ otherContents ++ configFiles;
   imageName = "docker.lan:5000/dev-env";
 
-  dev-env-image = dockerTools.streamLayeredImage {
+  dev-env-image = dockerTools.buildLayeredImageWithNixDb {
     name = imageName;
 
     inherit contents;
-
-    # see https://github.com/NixOS/nixpkgs/blob/793e77d4e2b14dfa1cb914b4604031defd5ce0ab/pkgs/build-support/docker/default.nix#L42
-    extraCommands = ''
-      echo "Generating the nix database..."
-      echo "Warning: only the database of the deepest Nix layer is loaded."
-      echo "         If you want to use nix commands in the container, it would"
-      echo "         be better to only have one layer that contains a nix store."
-      export NIX_REMOTE=local?root=$PWD
-      # A user is required by nix
-      # https://github.com/NixOS/nix/blob/9348f9291e5d9e4ba3c4347ea1b235640f54fd79/src/libutil/util.cc#L478
-      export USER=nobody
-      ${buildPackages.nix}/bin/nix-store --load-db < ${pkgs.closureInfo {rootPaths = contents;}}/registration
-      mkdir -p nix/var/nix/gcroots/docker/
-      for i in ${lib.concatStringsSep " " contents}; do
-      ln -s $i nix/var/nix/gcroots/docker/$(basename $i)
-      done;
-    '';
 
     config.Cmd = ["${entrypoint}/bin/entrypoint"];
     config.Env = [

@@ -1,4 +1,4 @@
-{pkgs, nixpkgsPath, nixos-generate}: {deploymentEnv}:
+{pkgs, nixpkgsPath}: {deploymentEnv}:
 let
   user = "root";
   home = "root";
@@ -9,14 +9,11 @@ let
   configFiles = import ./config-files.nix {inherit pkgs nixpkgsPath user home;};
   codeServerExts = import ./extensions.nix {inherit pkgs;};
 
-  restartPodScript = pkgs.writeScriptBin "restart_pod" ''
-    #!${pkgs.runtimeShell} -xe
+  restartPodScript = pkgs.writeShellScriptBin "restart_pod" ''
     exec "${pkgs.kubectl}/bin/kubectl" -n dev delete pod $(hostname)
   '';
 
-  entrypoint = pkgs.writeScriptBin "entrypoint" ''
-    #!${pkgs.runtimeShell} -xe
-
+  entrypoint = pkgs.writeShellScriptBin "entrypoint" ''
     chmod a+rw /var/run/docker.sock
     chmod a+rwx /tmp
 
@@ -43,6 +40,7 @@ let
     pkgs.less
     pkgs.nixFlakes
     pkgs.nix-direnv
+    pkgs.nixos-generators
     pkgs.nmon
     pkgs.openssh
     pkgs.ps
@@ -51,7 +49,6 @@ let
   ];
 
   otherContents = [
-    nixos-generate
     restartPodScript
   ];
 

@@ -6,9 +6,7 @@ let
   ccat = "${pkgs.ccrypt}/bin/ccat";
   kubectl = "${pkgs.kubectl}/bin/kubectl";
 in
-pkgs.writeScriptBin "apply_manifests" ''
-  #!${pkgs.runtimeShell} -xe
-
+pkgs.writeShellScriptBin "apply_manifests" ''
   if [ -z "$SECRETS_PASSPHRASE" ]; then
     echo "please set env var SECRETS_PASSPHRASE"
     exit 1

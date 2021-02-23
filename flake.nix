@@ -5,11 +5,20 @@
   outputs = {self, nixpkgs, nixos-generators}:
     let
       nixpkgsPath = "${nixpkgs}";
+
       outputs' = system:
         let
-          pkgs = nixpkgs.legacyPackages.${system};
-          nixos-generate = nixos-generators.defaultPackage.${system};
-          imageBuilder = import ./dev-env.nix {inherit pkgs nixpkgsPath nixos-generate;};
+          overlay = final: previous: {
+            nixos-generators = nixos-generators.defaultPackage.${system};
+            writeShellScriptBin = name: text:
+              previous.writeScriptBin name ''
+                #!${final.runtimeShell} -xe
+                ${text}
+              '';
+          };
+
+          pkgs = import nixpkgs {inherit system; overlays = [overlay];};
+          imageBuilder = import ./dev-env.nix {inherit pkgs nixpkgsPath;};
           installer = import ./installer.nix {inherit pkgs;};
         in
         {

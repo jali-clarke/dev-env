@@ -1,10 +1,27 @@
 {
   "nodes": {
+    "homelab-config": {
+      "inputs": {
+        "nixos-generators": "nixos-generators",
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1615847153,
+        "narHash": "sha256-LQRkY6kkNkk68XYufz7YcloLTWH9v0r9IZoKlL3Hs5Y=",
+        "owner": "jali-clarke",
+        "repo": "homelab-config",
+        "rev": "575e4bc1d59c70ad82bbfdcd94f42291aaddee61",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jali-clarke",
+        "repo": "homelab-config",
+        "type": "github"
+      }
+    },
     "nixos-generators": {
       "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
+        "nixpkgs": "nixpkgs"
       },
       "locked": {
         "lastModified": 1613307374,
@@ -22,6 +39,37 @@
     },
     "nixpkgs": {
       "locked": {
+        "lastModified": 1612916640,
+        "narHash": "sha256-VqMq/cs+9Bcc/DY7JIXlRHvwg7xRqLSntscWcMCKg/8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "66e66b9d481386f4c7a6b998f32ce794af0182ae",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1615837777,
+        "narHash": "sha256-yEkSjTDb6ZnAcIl2Ld+qibSTiaoUz5OZ9JpgZGzlY9k=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "c00c67653a5008f926add91798c7cffa201aa2bb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
         "lastModified": 1610298361,
         "narHash": "sha256-TDC+xKErrtjgciU4TusjLMs0Gwr3+lM4TqGPmqeOj7Q=",
         "owner": "NixOS",
@@ -36,8 +84,8 @@
     },
     "root": {
       "inputs": {
-        "nixos-generators": "nixos-generators",
-        "nixpkgs": "nixpkgs"
+        "homelab-config": "homelab-config",
+        "nixpkgs": "nixpkgs_3"
       }
     }
   },

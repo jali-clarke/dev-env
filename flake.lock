@@ -6,11 +6,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1615847153,
-        "narHash": "sha256-LQRkY6kkNkk68XYufz7YcloLTWH9v0r9IZoKlL3Hs5Y=",
+        "lastModified": 1615848793,
+        "narHash": "sha256-EqBxOX3lBv2Mq7L33YdbGJ4CbuYvPUgGjNrNBBw1jAs=",
         "owner": "jali-clarke",
         "repo": "homelab-config",
-        "rev": "575e4bc1d59c70ad82bbfdcd94f42291aaddee61",
+        "rev": "888fdddd9c7d56993424beebdad66abdb2a6d9f5",
         "type": "github"
       },
       "original": {

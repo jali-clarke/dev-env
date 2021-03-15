@@ -29,6 +29,7 @@
         in
         {
           defaultPackage.${system} = self.packages.${system}.stagingInstaller;
+
           packages.${system} = {
             stagingInstaller = installer {
               dev-env-image = imageBuilder {deploymentEnv = "staging";};
@@ -36,6 +37,13 @@
             prodInstaller = installer {
               dev-env-image = imageBuilder {deploymentEnv = "prod";};
             };
+          };
+
+          devShell.${system} = pkgs.mkShell {
+            name = "dev-env-dev-shell";
+            buildInputs = [
+              pkgs.kubectl
+            ];
           };
         };
     in

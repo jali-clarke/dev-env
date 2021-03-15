@@ -3,11 +3,12 @@ let
   lib = pkgs.lib;
   stdenv = pkgs.stdenv;
 
-  codeServerExt = {extensionName, version, publisher, galleryUrl ? "https://marketplace.visualstudio.com/_apis/public/gallery"}:
+  codeServerExt = {extensionName, version, publisher, hash, galleryUrl ? "https://marketplace.visualstudio.com/_apis/public/gallery"}:
     let
       url = "${galleryUrl}/publishers/${publisher}/vsextensions/${extensionName}/${version}/vspackage";
       extDirName = lib.toLower "${publisher}.${extensionName}-${version}";
       extFileName = "${extDirName}.vsix";
+
       self = stdenv.mkDerivation {
         name = "code-server-ext.${extDirName}";
         nativeBuildInputs = [
@@ -21,11 +22,13 @@ let
           extDirPath = "${self}/${extDirName}";
         };
 
-        src = url;
+        src = pkgs.fetchurl {
+          inherit hash url;
+          name = extFileName;
+        };
 
         unpackPhase = ''
-          wget -O ${extFileName} $src
-          bsdtar -xf ${extFileName}
+          bsdtar -xf $src
         '';
 
         dontBuild = true;
@@ -44,6 +47,7 @@ let
         extensionName = "Nix";
         version = "1.0.1";
         publisher = "bbenoist";
+        hash = "sha256-+zoR6EupIkKiWOdcW8FxTaJbWjjZVE0G+mB6S5qAmEw=";
       }
     )
     (
@@ -51,6 +55,7 @@ let
         extensionName = "language-haskell";
         version = "3.3.0";
         publisher = "justusadam";
+        hash = "sha256-8lwbKJKG+pbbZxfwg9oDr15TM6Ed4eecAGXHTc7P9/w=";
       }
     )
     (
@@ -58,6 +63,7 @@ let
         extensionName = "language-purescript";
         version = "0.2.4";
         publisher = "nwolverson";
+        hash = "sha256-ZsHVDtNaqzSTzuyZ8dMKg9VSdNHis4g9HO7KMCmKzDI=";
       }
     )
   ];

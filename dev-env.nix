@@ -30,7 +30,6 @@ let
     pkgs.coreutils
     pkgs.direnv
     pkgs.dnsutils
-    pkgs.docker
     pkgs.git
     pkgs.gnugrep
     pkgs.htop

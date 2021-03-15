@@ -88,8 +88,6 @@ pkgs.writeText "dev_env_deployment.yaml" ''
             mountPath: /root/project
           - name: ssh-key
             mountPath: /tmp/secrets/ssh
-          - name: docker-socket
-            mountPath: /var/run/docker.sock
           ports:
           - name: http-port
             containerPort: 8080
@@ -116,9 +114,6 @@ pkgs.writeText "dev_env_deployment.yaml" ''
         - name: ssh-key
           secret:
             secretName: git-ssh-key
-        - name: docker-socket
-          hostPath:
-            path: /var/run/docker.sock
         - name: nginx-config
           configMap:
             name: ${fileBrowserConfigName}

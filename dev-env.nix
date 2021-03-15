@@ -14,7 +14,6 @@ let
   '';
 
   entrypoint = pkgs.writeShellScriptBin "entrypoint" ''
-    chmod a+rw /var/run/docker.sock
     chmod a+rwx /tmp
 
     mkdir -p /${home}/.ssh /${home}/.local/share/code-server

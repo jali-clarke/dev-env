@@ -17,7 +17,7 @@ pkgs.writeText "dev_env_volumes.yaml" ''
     storageClassName: dev-data
     nfs:
       path: /mnt/storage/recordsize-128K/k8s_drive/dev
-      server: 192.168.0.103
+      server: atlas.lan
   ---
   kind: PersistentVolumeClaim
   apiVersion: v1

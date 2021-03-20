@@ -43,6 +43,7 @@
             name = "dev-env-dev-shell";
             buildInputs = [
               pkgs.kubectl
+              pkgs.nixpkgs-fmt
             ];
           };
         };

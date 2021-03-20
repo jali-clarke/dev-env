@@ -1,6 +1,6 @@
-{pkgs, nixpkgsPath, user, home}:
+{ pkgs, nixpkgsPath, user, home }:
 let
-  usersFiles = import ./users.nix {inherit pkgs user home;};
+  usersFiles = import ./users.nix { inherit pkgs user home; };
 in
 usersFiles ++ [
   (
@@ -20,7 +20,7 @@ usersFiles ++ [
     ''
   )
   (
-    import ./bashrc.nix {inherit pkgs home;}
+    import ./bashrc.nix { inherit pkgs home; }
   )
   (
     pkgs.writeTextDir "${home}/.config/nix/registry.json" ''

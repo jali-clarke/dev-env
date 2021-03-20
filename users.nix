@@ -1,4 +1,4 @@
-{pkgs, user, home}:
+{ pkgs, user, home }:
 let
   passwd = pkgs.writeTextDir "etc/passwd" ''
     ${user}:x:0:0:${user}:/${home}:${pkgs.bashInteractive}/bin/bash

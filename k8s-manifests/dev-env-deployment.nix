@@ -1,7 +1,7 @@
-{pkgs, imageNameWithTag, deploymentEnv}:
+{ pkgs, imageNameWithTag, deploymentEnv }:
 let
   isProd = deploymentEnv == "prod";
-  
+
   appName = if isProd then "coder" else "coder-${deploymentEnv}";
   fileBrowserConfigName = if isProd then "file-browser-nginx-config" else "file-browser-nginx-${deploymentEnv}-config";
   ingressName = if isProd then "ingress" else "ingress-${deploymentEnv}";

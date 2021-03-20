@@ -1,9 +1,9 @@
-{pkgs}:
+{ pkgs }:
 let
   lib = pkgs.lib;
   stdenv = pkgs.stdenv;
 
-  codeServerExt = {extensionName, version, publisher, hash, galleryUrl ? "https://marketplace.visualstudio.com/_apis/public/gallery"}:
+  codeServerExt = { extensionName, version, publisher, hash, galleryUrl ? "https://marketplace.visualstudio.com/_apis/public/gallery" }:
     let
       url = "${galleryUrl}/publishers/${publisher}/vsextensions/${extensionName}/${version}/vspackage";
       extDirName = lib.toLower "${publisher}.${extensionName}-${version}";
@@ -38,8 +38,8 @@ let
           mv extension $out/${extDirName}
         '';
       };
-      in
-      self;
+    in
+    self;
 
   codeServerExts = [
     (
@@ -68,9 +68,11 @@ let
     )
   ];
 in
-pkgs.runCommand "dev-env-code-server-exts" {} ''
-  mkdir -p $out/extensions
-  ${lib.concatMapStrings (extDerivation: ''
-    ln -s ${extDerivation.extDirPath} $out/extensions/${extDerivation.extDirName}
-  '') codeServerExts}
+pkgs.runCommand "dev-env-code-server-exts" { } ''
+    mkdir -p $out/extensions
+    ${lib.concatMapStrings
+  (extDerivation: ''
+      ln -s ${extDerivation.extDirPath} $out/extensions/${extDerivation.extDirName}
+    '')
+  codeServerExts}
 ''

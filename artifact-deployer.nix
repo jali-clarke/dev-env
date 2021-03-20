@@ -1,4 +1,4 @@
-{pkgs}: {dev-env-image}:
+{ pkgs }: { dev-env-image }:
 let
   skopeoFlags = "--insecure-policy --dest-tls-verify=false --tmpdir=/tmp";
 in

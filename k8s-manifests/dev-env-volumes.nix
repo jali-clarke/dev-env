@@ -1,4 +1,4 @@
-{pkgs}:
+{ pkgs }:
 pkgs.writeText "dev_env_volumes.yaml" ''
   apiVersion: v1
   kind: Namespace

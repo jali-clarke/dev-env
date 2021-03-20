@@ -1,7 +1,7 @@
 {
   inputs.homelab-config.url = "github:jali-clarke/homelab-config";
 
-  outputs = {self, nixpkgs, homelab-config}:
+  outputs = { self, nixpkgs, homelab-config }:
     let
       nixpkgsPath = "${nixpkgs}";
 
@@ -24,18 +24,18 @@
             ];
           };
 
-          imageBuilder = import ./dev-env.nix {inherit pkgs nixpkgsPath;};
-          installer = import ./installer.nix {inherit pkgs;};
+          imageBuilder = import ./dev-env.nix { inherit pkgs nixpkgsPath; };
+          installer = import ./installer.nix { inherit pkgs; };
         in
         {
           defaultPackage.${system} = self.packages.${system}.stagingInstaller;
 
           packages.${system} = {
             stagingInstaller = installer {
-              dev-env-image = imageBuilder {deploymentEnv = "staging";};
+              dev-env-image = imageBuilder { deploymentEnv = "staging"; };
             };
             prodInstaller = installer {
-              dev-env-image = imageBuilder {deploymentEnv = "prod";};
+              dev-env-image = imageBuilder { deploymentEnv = "prod"; };
             };
           };
 

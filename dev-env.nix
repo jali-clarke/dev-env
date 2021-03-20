@@ -1,4 +1,4 @@
-{pkgs, nixpkgsPath}: {deploymentEnv}:
+{ pkgs, nixpkgsPath }: { deploymentEnv }:
 let
   user = "root";
   home = "root";
@@ -6,8 +6,8 @@ let
 
   inherit (pkgs) buildPackages dockerTools lib;
 
-  configFiles = import ./config-files.nix {inherit pkgs nixpkgsPath user home;};
-  codeServerExts = import ./extensions.nix {inherit pkgs;};
+  configFiles = import ./config-files.nix { inherit pkgs nixpkgsPath user home; };
+  codeServerExts = import ./extensions.nix { inherit pkgs; };
 
   restartPodScript = pkgs.writeShellScriptBin "restart_pod" ''
     exec "${pkgs.kubectl}/bin/kubectl" -n dev delete pod $(hostname)
@@ -58,7 +58,7 @@ let
 
     inherit contents;
 
-    config.Cmd = ["${entrypoint}/bin/entrypoint"];
+    config.Cmd = [ "${entrypoint}/bin/entrypoint" ];
     config.Env = [
       "USER=${user}"
       "HOME=/${home}"

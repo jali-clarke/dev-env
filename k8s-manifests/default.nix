@@ -1,7 +1,7 @@
-{pkgs}: {imageNameWithTag, deploymentEnv}:
+{ pkgs }: { imageNameWithTag, deploymentEnv }:
 let
-  volumesAndNamespaceManifest = import ./dev-env-volumes.nix {inherit pkgs;};
-  deploymentManifest = import ./dev-env-deployment.nix {inherit pkgs imageNameWithTag deploymentEnv;};
+  volumesAndNamespaceManifest = import ./dev-env-volumes.nix { inherit pkgs; };
+  deploymentManifest = import ./dev-env-deployment.nix { inherit pkgs imageNameWithTag deploymentEnv; };
 
   ccat = "${pkgs.ccrypt}/bin/ccat";
   kubectl = "${pkgs.kubectl}/bin/kubectl";

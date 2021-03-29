@@ -16,7 +16,7 @@ pkgs.writeText "dev_env_volumes.yaml" ''
     - ReadWriteMany
     storageClassName: dev-data
     nfs:
-      path: /mnt/storage/recordsize-128K/k8s_drive/dev
+      path: /mnt/storage/k8s_drive/dev
       server: atlas.lan
   ---
   kind: PersistentVolumeClaim

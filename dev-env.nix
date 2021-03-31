@@ -27,6 +27,7 @@ let
   pkgsContents = [
     pkgs.bashInteractive
     pkgs.coreutils
+    pkgs.curl
     pkgs.direnv
     pkgs.dnsutils
     pkgs.git

@@ -66,6 +66,14 @@ let
         hash = "sha256-ZsHVDtNaqzSTzuyZ8dMKg9VSdNHis4g9HO7KMCmKzDI=";
       }
     )
+    (
+      codeServerExt {
+        extensionName = "toml";
+        version = "0.5.1";
+        publisher = "be5invis";
+        hash = "sha256-QwaFTGsBugrViiht4kRtLyM1ebUvG+xh6Mw3Ftd/gXI=";
+      }
+    )
   ];
 in
 pkgs.runCommand "dev-env-code-server-exts" { } ''

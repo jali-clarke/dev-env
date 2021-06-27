@@ -32,6 +32,7 @@ let
     pkgs.dnsutils
     pkgs.git
     pkgs.gnugrep
+    pkgs.gnused
     pkgs.htop
     pkgs.inetutils
     pkgs.kubectl

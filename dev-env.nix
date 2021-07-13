@@ -15,6 +15,8 @@ let
 
   entrypoint = pkgs.writeShellScriptBin "entrypoint" ''
     chmod a+rwx /tmp
+    mkdir -p /usr/bin
+    ln -s ${pkgs.coreutils}/bin/env /usr/bin/env
 
     mkdir -p /${home}/.ssh /${home}/.local/share/code-server
     cp /tmp/secrets/ssh/id_rsa /${home}/.ssh

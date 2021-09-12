@@ -24,7 +24,8 @@
             ];
           };
 
-          imageBuilder = import ./dev-env.nix { inherit pkgs nixpkgsPath; };
+          # assertion will fail if the source tree is not clean
+          imageBuilder = assert self.sourceInfo ? rev; import ./dev-env.nix { inherit pkgs nixpkgsPath; tag = self.sourceInfo.rev; };
           installer = import ./installer.nix { inherit pkgs; };
         in
         {

@@ -1,4 +1,4 @@
-{ pkgs, nixpkgsPath }: { deploymentEnv }:
+{ pkgs, nixpkgsPath, tag }: { deploymentEnv }:
 let
   user = "root";
   home = "root";
@@ -60,7 +60,7 @@ let
   dev-env-image = dockerTools.buildLayeredImageWithNixDb {
     name = imageName;
 
-    inherit contents;
+    inherit contents tag;
 
     config.Cmd = [ "${entrypoint}/bin/entrypoint" ];
     config.Env = [

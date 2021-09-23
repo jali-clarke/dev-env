@@ -28,6 +28,7 @@ let
 
   pkgsContents = [
     pkgs.bashInteractive
+    pkgs.comma
     pkgs.coreutils
     pkgs.curl
     pkgs.direnv

@@ -1,7 +1,10 @@
 {
   inputs.homelab-config.url = "github:jali-clarke/homelab-config";
 
-  outputs = { self, nixpkgs, homelab-config }:
+  inputs.comma-repo.url = "github:Shopify/comma";
+  inputs.comma-repo.flake = false;
+
+  outputs = { self, nixpkgs, comma-repo, homelab-config }:
     let
       nixpkgsPath = "${nixpkgs}";
 
@@ -13,6 +16,8 @@
                 #!${final.runtimeShell} -xe
                 ${text}
               '';
+
+            comma = import ./comma.nix { inherit comma-repo nixpkgsPath; pkgs = final; };
           };
 
           pkgs = import nixpkgs {

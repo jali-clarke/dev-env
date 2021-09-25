@@ -73,7 +73,10 @@ usersFiles ++ [
           "--login"
         ],
         "workbench.colorTheme": "Default Dark+",
-        "workbench.startupEditor": "none"
+        "workbench.startupEditor": "none",
+        "[nix]": {
+          "editor.tabSize": 2
+        }
       }
     ''
   )

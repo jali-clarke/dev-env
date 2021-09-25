@@ -5,7 +5,7 @@ let
   exts = pkgs.vscode-extensions;
 
   codeServerExts = [
-    exts.bbenoist.Nix
+    exts.bbenoist.nix
     exts.justusadam.language-haskell
   ];
 in

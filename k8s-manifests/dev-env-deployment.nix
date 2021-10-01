@@ -148,49 +148,52 @@ pkgs.writeText "dev_env_deployment.yaml" ''
         }
       }
   ---
-  apiVersion: extensions/v1beta1
+  apiVersion: networking.k8s.io/v1
   kind: Ingress
   metadata:
     name: ${ingressName}
     namespace: dev
-    annotations:
-      nginx.ingress.kubernetes.io/use-regex: "true"
-      nginx.ingress.kubernetes.io/rewrite-target: /$1
-      kubernetes.io/ingress.class: "internal"
   spec:
+    ingressClassName: internal
     rules:
     - host: ${ingressHostname}.lan
       http:
         paths:
-        - path: /(.*)
+        - pathType: Prefix
+          path: "/"
           backend:
-            serviceName: ${appName}-service
-            servicePort: 8080
+            service:
+              name: ${appName}-service
+              port:
+                number: 8080
     - host: files.${ingressHostname}.lan
       http:
         paths:
-        - path: /(.*)
+        - pathType: Prefix
+          path: "/"
           backend:
-            serviceName: ${appName}-service
-            servicePort: 80
+            service:
+              name: ${appName}-service
+              port:
+                number: 80
     - host: web.${ingressHostname}.lan
       http:
         paths:
-        - path: /(.*)
+        - pathType: Prefix
+          path: "/"
           backend:
-            serviceName: ${appName}-service
-            servicePort: 8888
+            service:
+              name: ${appName}-service
+              port:
+                number: 8888
   ---
-  apiVersion: extensions/v1beta1
+  apiVersion: networking.k8s.io/v1
   kind: Ingress
   metadata:
     name: ${ingressName}-external
     namespace: dev
-    annotations:
-      nginx.ingress.kubernetes.io/use-regex: "true"
-      nginx.ingress.kubernetes.io/rewrite-target: /$1
-      kubernetes.io/ingress.class: "external"
   spec:
+    ingressClassName: external
     tls:
     - hosts:
       - ${ingressHostname}.jali-clarke.ca
@@ -199,8 +202,11 @@ pkgs.writeText "dev_env_deployment.yaml" ''
     - host: ${ingressHostname}.jali-clarke.ca
       http:
         paths:
-        - path: /(.*)
+        - pathType: Prefix
+          path: "/"
           backend:
-            serviceName: ${appName}-service
-            servicePort: 8080
+            service:
+              name: ${appName}-service
+              port:
+                number: 8080
 ''

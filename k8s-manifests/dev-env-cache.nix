@@ -46,4 +46,10 @@ pkgs.writeText "dev_env_cache.yaml" ''
           ports:
           - name: http
             containerPort: 80
+          volumeMounts:
+          - name: nix-store
+            mountPath: /nix/store
+        volumes:
+        - name: nix-store
+          emptyDir: {}
 ''

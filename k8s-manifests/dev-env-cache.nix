@@ -32,6 +32,23 @@ pkgs.writeText "dev_env_cache.yaml" ''
       spec:
         nodeSelector:
           beta.kubernetes.io/arch: amd64
+        initContainers:
+        - name: nix-pre-populate
+          image: nixos/nix:2.3.12
+          imagePullPolicy: IfNotPresent
+          command:
+          - nix-shell
+          - -p
+          - rsync
+          - --run
+          args:
+          - "rsync --info=progress2 -auvz /nix/store/ /to-populate-nix/store"
+          ports:
+          - name: http
+            containerPort: 80
+          volumeMounts:
+          - name: nix-store
+            mountPath: /to-populate-nix/store
         containers:
         - name: nix
           image: nixos/nix:2.3.12

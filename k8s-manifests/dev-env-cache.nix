@@ -42,8 +42,8 @@ pkgs.writeText "dev_env_cache.yaml" ''
           - nix-serve
           - --run
           args:
-          - "nix-serve -p 5000"
+          - "nix-serve -p 80"
           ports:
           - name: http
-            containerPort: 5000
+            containerPort: 80
 ''

@@ -1,15 +1,6 @@
 { pkgs }:
 let
   nixDockerImage = "nixos/nix:2.3.12";
-  sshdStartup = [
-    "(echo -e \\\"$PASSWORD\\n$PASSWORD\\\" | passwd root)"
-    "chown root:root /var/empty"
-    "mkdir -p /etc/ssh"
-    "ssh-keygen -A"
-    "`which sshd` -D -p 22 -f /sshd_config_mnt/sshd_config"
-  ];
-
-  sshdStartupString = builtins.concatStringsSep " && " sshdStartup;
 in
 pkgs.writeText "dev_env_cache.yaml" ''
   apiVersion: v1
@@ -39,6 +30,16 @@ pkgs.writeText "dev_env_cache.yaml" ''
     sshd_config: |
       PasswordAuthentication yes
       PermitRootLogin yes
+      PermitUserEnvironment yes
+    startup.sh: |
+      #!/bin/bash -e
+      echo -ne "$PASSWORD\n$PASSWORD" | passwd root
+      mkdir -p /root/.ssh
+      echo "PATH=$PATH" >> /root/.ssh/environment
+      chown root:root /var/empty
+      mkdir -p /etc/ssh
+      ssh-keygen -A
+      exec `which sshd` -D -p 22 -f /sshd_config_mnt/sshd_config
   ---
   apiVersion: apps/v1
   kind: Deployment
@@ -100,7 +101,7 @@ pkgs.writeText "dev_env_cache.yaml" ''
           - openssh
           - --run
           args:
-          - "${sshdStartupString}"
+          - "bash /sshd_config_mnt/startup.sh"
           env:
           - name: PASSWORD
             valueFrom:

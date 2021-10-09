@@ -1,4 +1,16 @@
 { pkgs }:
+let
+  nixDockerImage = "nixos/nix:2.3.12";
+  sshdStartup = [
+    "(echo -e \\\"$PASSWORD\\n$PASSWORD\\\" | passwd root)"
+    "chown root:root /var/empty"
+    "mkdir -p /etc/ssh"
+    "ssh-keygen -A"
+    "`which sshd` -D -p 22 -f /sshd_config_mnt/sshd_config"
+  ];
+
+  sshdStartupString = builtins.concatStringsSep " && " sshdStartup;
+in
 pkgs.writeText "dev_env_cache.yaml" ''
   apiVersion: v1
   kind: Service
@@ -17,6 +29,16 @@ pkgs.writeText "dev_env_cache.yaml" ''
     - name: ssh
       port: 22
       targetPort: ssh
+  ---
+  apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    name: dev-env-cache-sshd-config
+    namespace: dev
+  data:
+    sshd_config: |
+      PasswordAuthentication yes
+      PermitRootLogin yes
   ---
   apiVersion: apps/v1
   kind: Deployment
@@ -37,7 +59,7 @@ pkgs.writeText "dev_env_cache.yaml" ''
           beta.kubernetes.io/arch: amd64
         initContainers:
         - name: nix-pre-populate
-          image: nixos/nix:2.3.12
+          image: ${nixDockerImage}
           imagePullPolicy: IfNotPresent
           command:
           - nix-shell
@@ -53,8 +75,8 @@ pkgs.writeText "dev_env_cache.yaml" ''
           - name: nix-store
             mountPath: /to-populate-nix/store
         containers:
-        - name: nix
-          image: nixos/nix:2.3.12
+        - name: nix-serve
+          image: ${nixDockerImage}
           imagePullPolicy: IfNotPresent
           command:
           - nix-shell
@@ -70,18 +92,33 @@ pkgs.writeText "dev_env_cache.yaml" ''
           - name: nix-store
             mountPath: /nix/store
         - name: sshd
-          image: sickp/alpine-sshd:7.9
+          image: ${nixDockerImage}
           imagePullPolicy: IfNotPresent
+          command:
+          - nix-shell
+          - -p
+          - openssh
+          - --run
+          args:
+          - "${sshdStartupString}"
           env:
-          - name: SSH_ENABLE_ROOT
-            value: "true"
+          - name: PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: coder-password
+                key: coder-password
           ports:
           - name: ssh
             containerPort: 22
           volumeMounts:
           - name: nix-store
             mountPath: /nix/store
+          - name: sshd-config
+            mountPath: /sshd_config_mnt
         volumes:
         - name: nix-store
           emptyDir: {}
+        - name: sshd-config
+          configMap:
+            name: dev-env-cache-sshd-config
 ''

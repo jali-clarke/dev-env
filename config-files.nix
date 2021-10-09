@@ -59,6 +59,8 @@ usersFiles ++ [
         name = jali-clarke
       [pull]
         rebase = false
+      [init]
+        defaultBranch = master
     ''
   )
   (

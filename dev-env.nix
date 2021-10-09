@@ -41,6 +41,7 @@ let
     pkgs.kubectl
     pkgs.kubernetes-helm
     pkgs.less
+    pkgs.man
     pkgs.nixFlakes
     pkgs.nix-direnv
     pkgs.nixos-generators

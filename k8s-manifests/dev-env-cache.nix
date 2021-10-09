@@ -14,6 +14,9 @@ pkgs.writeText "dev_env_cache.yaml" ''
     - name: http
       port: 80
       targetPort: http
+    - name: ssh
+      port: 22
+      targetPort: ssh
   ---
   apiVersion: apps/v1
   kind: Deployment
@@ -63,6 +66,18 @@ pkgs.writeText "dev_env_cache.yaml" ''
           ports:
           - name: http
             containerPort: 80
+          volumeMounts:
+          - name: nix-store
+            mountPath: /nix/store
+        - name: sshd
+          image: sickp/alpine-sshd:7.9
+          imagePullPolicy: IfNotPresent
+          env:
+          - name: SSH_ENABLE_ROOT
+            value: "true"
+          ports:
+          - name: ssh
+            containerPort: 22
           volumeMounts:
           - name: nix-store
             mountPath: /nix/store

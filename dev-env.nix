@@ -36,6 +36,7 @@ let
     pkgs.git
     pkgs.gnugrep
     pkgs.gnused
+    pkgs.gzip
     pkgs.htop
     pkgs.inetutils
     pkgs.kubectl

@@ -51,6 +51,7 @@
           devShell.${system} = pkgs.mkShell {
             name = "dev-env-dev-shell";
             buildInputs = [
+              pkgs.ccrypt
               pkgs.kubectl
               pkgs.nixpkgs-fmt
             ];

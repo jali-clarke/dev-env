@@ -1,6 +1,17 @@
 { pkgs, nixpkgsPath, user, home }:
 let
   usersFiles = import ./users.nix { inherit pkgs user home; };
+
+  uploadToCache = pkgs.writeShellScriptBin "upload_to_cache" ''
+    set -eu
+    set -f # disable globbing
+    export IFS=' '
+
+    DESTINATION="ssh://root@dev-env-cache"
+
+    echo "Signing and uploading paths to $DESTINATION - " $OUT_PATHS
+    exec nix copy --to "$DESTINATION?secret-key=/tmp/secrets/cache_signing_key/signing_key" $OUT_PATHS
+  '';
 in
 usersFiles ++ [
   (
@@ -10,6 +21,7 @@ usersFiles ++ [
       experimental-features = nix-command flakes
       keep-derivations = true
       keep-outputs = true
+      post-build-hook = ${uploadToCache}/bin/upload_to_cache
       sandbox = false
       substituters = ssh://root@dev-env-cache?priority=10 https://cache.nixos.org?priority=100
       trusted-public-keys = dev-env-cache:qvlzVFMLRIJkReizkn7KWNtjTHIPPA+PcP1T+V6HyWU= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=

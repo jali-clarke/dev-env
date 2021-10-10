@@ -31,13 +31,19 @@ pkgs.writeText "dev_env_cache.yaml" ''
     startup.sh: |
       #!/bin/bash -e
       echo -ne "$PASSWORD\n$PASSWORD" | passwd root
+      
       mkdir -p /root/.ssh
       cat /ssh_key_mnt/id_rsa.pub >> /root/.ssh/authorized_keys
       chmod 600 /root/.ssh/authorized_keys
       echo "PATH=$PATH" >> /root/.ssh/environment
+      
       chown root:root /var/empty
+      
       mkdir -p /etc/ssh
-      ssh-keygen -A
+      cp /ssh_host_key_mnt/* /etc/ssh
+      chmod 600 /etc/ssh/ssh_host_rsa_key
+      chmod 644 /etc/ssh/ssh_host_rsa_key.pub
+
       exec `which sshd` -D -p 22 -f /sshd_config_mnt/sshd_config
   ---
   apiVersion: apps/v1
@@ -101,12 +107,17 @@ pkgs.writeText "dev_env_cache.yaml" ''
             mountPath: /sshd_config_mnt
           - name: ssh-key
             mountPath: /ssh_key_mnt
+          - name: ssh-host-key
+            mountPath: /ssh_host_key_mnt
         volumes:
         - name: nix-dir
           emptyDir: {}
         - name: ssh-key
           secret:
             secretName: git-ssh-key
+        - name: ssh-host-key
+          secret:
+            secretName: cache-ssh-host-key
         - name: sshd-config
           configMap:
             name: dev-env-cache-sshd-config

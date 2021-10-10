@@ -9,13 +9,12 @@ let
 
     DESTINATION="ssh://root@dev-env-cache"
 
-    echo "Signing and uploading paths to $DESTINATION - " $OUT_PATHS
-    exec nix copy --to "$DESTINATION?secret-key=/tmp/secrets/cache_signing_key/signing_key" $OUT_PATHS
+    echo "Uploading signed paths to $DESTINATION - " $OUT_PATHS
+    exec ${pkgs.nixUnstable}/bin/nix copy --to "$DESTINATION" $OUT_PATHS
   '';
 in
 usersFiles ++ [
   (
-    # keep trusted-public-keys in sync with the cache-signing-key secret
     pkgs.writeTextDir "etc/nix/nix.conf" ''
       auto-optimise-store = true
       experimental-features = nix-command flakes
@@ -23,8 +22,8 @@ usersFiles ++ [
       keep-outputs = true
       post-build-hook = ${uploadToCache}/bin/upload_to_cache
       sandbox = false
+      secret-key-files = /tmp/secrets/cache_signing_key/signing_key
       substituters = ssh://root@dev-env-cache?priority=10 https://cache.nixos.org?priority=100
-      trusted-public-keys = dev-env-cache:qvlzVFMLRIJkReizkn7KWNtjTHIPPA+PcP1T+V6HyWU= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
     ''
   )
   (

@@ -10,7 +10,7 @@ usersFiles ++ [
       keep-derivations = true
       keep-outputs = true
       sandbox = false
-      substituters = ssh://root@dev-env-cache?priority=100 https://cache.nixos.org?priority=10
+      substituters = ssh://root@dev-env-cache?priority=10 https://cache.nixos.org?priority=100
     ''
   )
   (

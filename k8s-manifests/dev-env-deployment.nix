@@ -88,6 +88,8 @@ pkgs.writeText "dev_env_deployment.yaml" ''
             mountPath: /root/project
           - name: ssh-key
             mountPath: /tmp/secrets/ssh
+          - name: cache-ssh-host-key
+            mountPath: /tmp/secrets/cache_ssh_host_key
           ports:
           - name: http-port
             containerPort: 8080
@@ -114,6 +116,9 @@ pkgs.writeText "dev_env_deployment.yaml" ''
         - name: ssh-key
           secret:
             secretName: git-ssh-key
+        - name: cache-ssh-host-key
+          secret:
+            secretName: cache-ssh-host-key
         - name: nginx-config
           configMap:
             name: ${fileBrowserConfigName}

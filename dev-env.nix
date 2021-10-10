@@ -21,6 +21,8 @@ let
     mkdir -p /${home}/.ssh /${home}/.local/share/code-server
     cp /tmp/secrets/ssh/id_rsa /${home}/.ssh
     chmod 400 /${home}/.ssh/id_rsa
+    cat /tmp/secrets/cache_ssh_host_key/ssh_host_rsa_key.pub >> /${home}/.ssh/known_hosts
+    chmod 600 /${home}/.ssh/known_hosts
 
     ln -s ${codeServerExts}/extensions /${home}/.local/share/code-server/extensions
     ${pkgs.code-server}/bin/code-server --disable-telemetry --bind-addr 0.0.0.0:8080 /${home}/project

@@ -4,6 +4,7 @@ let
 in
 usersFiles ++ [
   (
+    # keep trusted-public-keys in sync with the cache-signing-key secret
     pkgs.writeTextDir "etc/nix/nix.conf" ''
       auto-optimise-store = true
       experimental-features = nix-command flakes
@@ -11,6 +12,7 @@ usersFiles ++ [
       keep-outputs = true
       sandbox = false
       substituters = ssh://root@dev-env-cache?priority=10 https://cache.nixos.org?priority=100
+      trusted-public-keys = dev-env-cache:qvlzVFMLRIJkReizkn7KWNtjTHIPPA+PcP1T+V6HyWU= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
     ''
   )
   (

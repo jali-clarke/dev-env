@@ -68,13 +68,13 @@ pkgs.writeText "dev_env_cache.yaml" ''
           - rsync
           - --run
           args:
-          - "rsync --info=progress2 -auvz /nix/store/ /to-populate-nix/store"
+          - "rsync --info=progress2 -auvz /nix/ /to-populate-nix"
           ports:
           - name: http
             containerPort: 80
           volumeMounts:
-          - name: nix-store
-            mountPath: /to-populate-nix/store
+          - name: nix-dir
+            mountPath: /to-populate-nix
         containers:
         - name: nix-serve
           image: ${nixDockerImage}
@@ -90,8 +90,8 @@ pkgs.writeText "dev_env_cache.yaml" ''
           - name: http
             containerPort: 80
           volumeMounts:
-          - name: nix-store
-            mountPath: /nix/store
+          - name: nix-dir
+            mountPath: /nix
         - name: sshd
           image: ${nixDockerImage}
           imagePullPolicy: IfNotPresent
@@ -112,12 +112,12 @@ pkgs.writeText "dev_env_cache.yaml" ''
           - name: ssh
             containerPort: 22
           volumeMounts:
-          - name: nix-store
-            mountPath: /nix/store
+          - name: nix-dir
+            mountPath: /nix
           - name: sshd-config
             mountPath: /sshd_config_mnt
         volumes:
-        - name: nix-store
+        - name: nix-dir
           emptyDir: {}
         - name: sshd-config
           configMap:

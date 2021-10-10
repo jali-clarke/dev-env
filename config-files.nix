@@ -6,11 +6,11 @@ usersFiles ++ [
   (
     pkgs.writeTextDir "etc/nix/nix.conf" ''
       auto-optimise-store = true
-      binary-caches = http://dev-env-cache/ https://cache.nixos.org/
       experimental-features = nix-command flakes
       keep-derivations = true
       keep-outputs = true
       sandbox = false
+      substituters = http://dev-env-cache/ https://cache.nixos.org/
     ''
   )
   (

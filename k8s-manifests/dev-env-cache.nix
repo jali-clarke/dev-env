@@ -28,13 +28,15 @@ pkgs.writeText "dev_env_cache.yaml" ''
     namespace: dev
   data:
     sshd_config: |
-      PasswordAuthentication yes
+      PasswordAuthentication no
       PermitRootLogin yes
       PermitUserEnvironment yes
     startup.sh: |
       #!/bin/bash -e
       echo -ne "$PASSWORD\n$PASSWORD" | passwd root
       mkdir -p /root/.ssh
+      cat /ssh_key_mnt/id_rsa.pub >> /root/.ssh/authorized_keys
+      chmod 600 /root/.ssh/authorized_keys
       echo "PATH=$PATH" >> /root/.ssh/environment
       chown root:root /var/empty
       mkdir -p /etc/ssh
@@ -116,9 +118,14 @@ pkgs.writeText "dev_env_cache.yaml" ''
             mountPath: /nix
           - name: sshd-config
             mountPath: /sshd_config_mnt
+          - name: ssh-key
+            mountPath: /ssh_key_mnt
         volumes:
         - name: nix-dir
           emptyDir: {}
+        - name: ssh-key
+          secret:
+            secretName: git-ssh-key
         - name: sshd-config
           configMap:
             name: dev-env-cache-sshd-config

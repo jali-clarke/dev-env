@@ -14,9 +14,6 @@ pkgs.writeText "dev_env_cache.yaml" ''
       app: dev-env-cache
     clusterIP: None
     ports:
-    - name: http
-      port: 80
-      targetPort: http
     - name: ssh
       port: 22
       targetPort: ssh
@@ -78,22 +75,6 @@ pkgs.writeText "dev_env_cache.yaml" ''
           - name: nix-dir
             mountPath: /to-populate-nix
         containers:
-        - name: nix-serve
-          image: ${nixDockerImage}
-          imagePullPolicy: IfNotPresent
-          command:
-          - nix-shell
-          - -p
-          - nix-serve
-          - --run
-          args:
-          - "nix-serve -p 80"
-          ports:
-          - name: http
-            containerPort: 80
-          volumeMounts:
-          - name: nix-dir
-            mountPath: /nix
         - name: sshd
           image: ${nixDockerImage}
           imagePullPolicy: IfNotPresent

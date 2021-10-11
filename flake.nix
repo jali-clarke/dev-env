@@ -19,7 +19,7 @@
                 ${text}
               '';
 
-            comma = import ./comma.nix { inherit comma-repo nixpkgsPath; pkgs = final; };
+            comma = import comma-repo { pkgs = final; };
           };
 
           pkgs = import nixpkgs {

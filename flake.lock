@@ -3,11 +3,11 @@
     "comma-repo": {
       "flake": false,
       "locked": {
-        "lastModified": 1633977662,
-        "narHash": "sha256-5cMayCxcBBLJSZ/HUOECsxiw5URFhd4Oo2dHEc/yrAg=",
+        "lastModified": 1633980679,
+        "narHash": "sha256-0JPtErCtd0y/LkM85O+Se+d+gdt7ILyPsd010D2OiNg=",
         "owner": "jali-clarke",
         "repo": "comma",
-        "rev": "31fac37fa4dc0f801b990b2b5b7bb67fc4c63c16",
+        "rev": "aa3699cc9ae9ead5e39d1e34ed54de179b7204a3",
         "type": "github"
       },
       "original": {

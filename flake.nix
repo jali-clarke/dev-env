@@ -1,10 +1,7 @@
 {
   inputs.nixpkgs.url = "github:NixOS/nixpkgs";
-
   inputs.homelab-config.url = "github:jali-clarke/homelab-config";
-
   inputs.comma.url = "github:jali-clarke/comma/flakify";
-  inputs.comma.inputs.nixpkgs.follows = "nixpkgs";
 
   outputs = { self, nixpkgs, comma, homelab-config }:
     let

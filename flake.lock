@@ -3,15 +3,16 @@
     "comma-repo": {
       "flake": false,
       "locked": {
-        "lastModified": 1588170489,
-        "narHash": "sha256-IT7zlcM1Oh4sWeCJ1m4NkteuajPxTnNo1tbitG0eqlg=",
+        "lastModified": 1633977662,
+        "narHash": "sha256-5cMayCxcBBLJSZ/HUOECsxiw5URFhd4Oo2dHEc/yrAg=",
         "owner": "jali-clarke",
         "repo": "comma",
-        "rev": "4a62ec17e20ce0e738a8e5126b4298a73903b468",
+        "rev": "31fac37fa4dc0f801b990b2b5b7bb67fc4c63c16",
         "type": "github"
       },
       "original": {
         "owner": "jali-clarke",
+        "ref": "flakify",
         "repo": "comma",
         "type": "github"
       }

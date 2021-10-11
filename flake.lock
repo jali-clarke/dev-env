@@ -1,19 +1,39 @@
 {
   "nodes": {
-    "comma-repo": {
-      "flake": false,
+    "comma": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
       "locked": {
-        "lastModified": 1633980679,
-        "narHash": "sha256-0JPtErCtd0y/LkM85O+Se+d+gdt7ILyPsd010D2OiNg=",
+        "lastModified": 1633984644,
+        "narHash": "sha256-vmGWPbSfdQ1NE+hx4Qr87VvAu93cwvFXUGc9FLlrcms=",
         "owner": "jali-clarke",
         "repo": "comma",
-        "rev": "aa3699cc9ae9ead5e39d1e34ed54de179b7204a3",
+        "rev": "f0fe42a80735b17533440d09f1b74845343f7242",
         "type": "github"
       },
       "original": {
         "owner": "jali-clarke",
         "ref": "flakify",
         "repo": "comma",
+        "type": "github"
+      }
+    },
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1631561581,
+        "narHash": "sha256-3VQMV5zvxaVLvqqUrNz3iJelLw30mIVSfZmAaauM3dA=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "7e5bf3925f6fbdfaf50a2a7ca0be2879c4261d19",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
         "type": "github"
       }
     },
@@ -102,7 +122,7 @@
     },
     "root": {
       "inputs": {
-        "comma-repo": "comma-repo",
+        "comma": "comma",
         "homelab-config": "homelab-config",
         "nixpkgs": "nixpkgs_3"
       }

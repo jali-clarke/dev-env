@@ -3,10 +3,10 @@
 
   inputs.homelab-config.url = "github:jali-clarke/homelab-config";
 
-  inputs.comma-repo.url = "github:jali-clarke/comma/flakify";
-  inputs.comma-repo.flake = false;
+  inputs.comma.url = "github:jali-clarke/comma/flakify";
+  inputs.comma.inputs.nixpkgs.follows = "nixpkgs";
 
-  outputs = { self, nixpkgs, comma-repo, homelab-config }:
+  outputs = { self, nixpkgs, comma, homelab-config }:
     let
       nixpkgsPath = "${nixpkgs}";
 
@@ -18,14 +18,13 @@
                 #!${final.runtimeShell} -xe
                 ${text}
               '';
-
-            comma = import comma-repo { pkgs = final; };
           };
 
           pkgs = import nixpkgs {
             inherit system;
 
             overlays = [
+              comma.overlay
               homelab-config.overlays.${system}
               overlay
             ];

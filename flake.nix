@@ -3,7 +3,7 @@
 
   inputs.homelab-config.url = "github:jali-clarke/homelab-config";
 
-  inputs.comma-repo.url = "github:Shopify/comma";
+  inputs.comma-repo.url = "github:jali-clarke/comma";
   inputs.comma-repo.flake = false;
 
   outputs = { self, nixpkgs, comma-repo, homelab-config }:

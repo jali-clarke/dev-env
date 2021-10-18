@@ -41,15 +41,16 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1631635595,
-        "narHash": "sha256-KZzIZzuzccGuQWhetTLIXTECzslQ24utvHGEmOo1KGo=",
+        "lastModified": 1634572416,
+        "narHash": "sha256-DOCa6eCbFM+ZdL01/VOm9XFa/pTpeEmfU9UgvianpWU=",
         "owner": "jali-clarke",
         "repo": "homelab-config",
-        "rev": "379d38cd3309ffe8bbeef5fc43d485bee7bb281e",
+        "rev": "6c05e7ee2aad315a12162015dc6166447234135f",
         "type": "github"
       },
       "original": {
         "owner": "jali-clarke",
+        "ref": "weedle-known-good",
         "repo": "homelab-config",
         "type": "github"
       }

@@ -42,6 +42,7 @@ let
     pkgs.gzip
     pkgs.htop
     pkgs.inetutils
+    pkgs.k9s
     pkgs.kubectl
     pkgs.kubernetes-helm
     pkgs.less

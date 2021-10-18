@@ -1,6 +1,6 @@
 {
   inputs.nixpkgs.url = "github:NixOS/nixpkgs";
-  inputs.homelab-config.url = "github:jali-clarke/homelab-config";
+  inputs.homelab-config.url = "github:jali-clarke/homelab-config/weedle-known-good";
   inputs.comma.url = "github:jali-clarke/comma/flakify";
 
   outputs = { self, nixpkgs, comma, homelab-config }:

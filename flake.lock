@@ -1,5 +1,26 @@
 {
   "nodes": {
+    "agenix": {
+      "inputs": {
+        "nixpkgs": [
+          "homelab-config",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1634404028,
+        "narHash": "sha256-JyP2Y6JCCYvUcVz7CXX5pXUfTGTU4GX51Yza82BgMfk=",
+        "owner": "ryantm",
+        "repo": "agenix",
+        "rev": "53aa91b4170da35a96fab1577c9a34bc0da44e27",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ryantm",
+        "repo": "agenix",
+        "type": "github"
+      }
+    },
     "comma": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -37,15 +58,16 @@
     },
     "homelab-config": {
       "inputs": {
+        "agenix": "agenix",
         "nixos-generators": "nixos-generators",
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1634572416,
-        "narHash": "sha256-DOCa6eCbFM+ZdL01/VOm9XFa/pTpeEmfU9UgvianpWU=",
+        "lastModified": 1634755390,
+        "narHash": "sha256-6CyO6Ak0O1sH0Rw8J0Ml+RAU+bun5xMPrRR8LuKLenc=",
         "owner": "jali-clarke",
         "repo": "homelab-config",
-        "rev": "6c05e7ee2aad315a12162015dc6166447234135f",
+        "rev": "1e0f5577ac9afc6ee02ec4c316eb0724045f7f66",
         "type": "github"
       },
       "original": {

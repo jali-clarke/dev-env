@@ -12,3 +12,45 @@ spec:
   - name: ssh
     port: 22
     targetPort: ssh
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: coder-service
+  namespace: dev
+spec:
+  type: ClusterIP
+  selector:
+    app: coder
+  clusterIP: None
+  ports:
+  - name: coder
+    port: 8080
+    targetPort: http-port
+  - name: file-browser
+    port: 80
+    targetPort: file-browser
+  - name: web-dev
+    port: 8888
+    targetPort: dev-port
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: coder-staging-service
+  namespace: dev
+spec:
+  type: ClusterIP
+  selector:
+    app: coder-staging
+  clusterIP: None
+  ports:
+  - name: coder
+    port: 8080
+    targetPort: http-port
+  - name: file-browser
+    port: 80
+    targetPort: file-browser
+  - name: web-dev
+    port: 8888
+    targetPort: dev-port

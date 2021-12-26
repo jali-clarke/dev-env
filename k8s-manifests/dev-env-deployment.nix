@@ -8,26 +8,6 @@ let
   ingressHostname = if isProd then "dev" else "dev-${deploymentEnv}";
 in
 pkgs.writeText "dev_env_deployment.yaml" ''
-  apiVersion: v1
-  kind: Service
-  metadata:
-    name: ${appName}-service
-    namespace: dev
-  spec:
-    type: ClusterIP
-    selector:
-      app: ${appName}
-    clusterIP: None
-    ports:
-    - name: coder
-      port: 8080
-      targetPort: http-port
-    - name: file-browser
-      port: 80
-      targetPort: file-browser
-    - name: web-dev
-      port: 8888
-      targetPort: dev-port
   ---
   apiVersion: apps/v1
   kind: Deployment

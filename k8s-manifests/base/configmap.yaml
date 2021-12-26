@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dev-env-cache-sshd-config
+data:
+  sshd_config: |
+    PasswordAuthentication no
+    PermitRootLogin yes
+    PermitUserEnvironment yes
+  startup.sh: |
+    #!/bin/bash -e
+    echo -ne "$PASSWORD\n$PASSWORD" | passwd root
+    
+    mkdir -p /root/.ssh
+    cat /ssh_key_mnt/id_rsa.pub >> /root/.ssh/authorized_keys
+    chmod 600 /root/.ssh/authorized_keys
+    echo "PATH=$PATH" >> /root/.ssh/environment
+    
+    chown root:root /var/empty
+    
+    mkdir -p /etc/ssh
+    cp /ssh_host_key_mnt/* /etc/ssh
+    chmod 600 /etc/ssh/ssh_host_rsa_key
+    chmod 644 /etc/ssh/ssh_host_rsa_key.pub
+
+    exec `which sshd` -D -p 22 -f /sshd_config_mnt/sshd_config
+---

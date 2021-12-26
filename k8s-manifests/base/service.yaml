@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dev-env-cache
+spec:
+  type: ClusterIP
+  selector:
+    app: dev-env-cache
+  clusterIP: None
+  ports:
+  - name: ssh
+    port: 22
+    targetPort: ssh
+---

@@ -17,15 +17,6 @@ let
       ${ccat} -E SECRETS_PASSPHRASE -c ${./dev_env_secrets.yaml.cpt} | ${kubectl} apply -f -
     '';
 
-  applyCacheManifests =
-    let
-      cacheManifest = import ./dev-env-cache.nix { inherit pkgs; };
-    in
-    pkgs.writeShellScriptBin "apply_cache_manifests" ''
-      ${applyBaseManifests}/bin/apply_base_manifests
-      ${kubectl} apply -f ${cacheManifest}
-    '';
-
   applyDeploymentManifestsWithImage = { imageNameWithTag, deploymentEnv }:
     let
       deploymentManifest = import ./dev-env-deployment.nix { inherit pkgs imageNameWithTag deploymentEnv; };
@@ -36,5 +27,5 @@ let
     '';
 in
 {
-  inherit applyCacheManifests applyDeploymentManifestsWithImage;
+  inherit applyDeploymentManifestsWithImage;
 }

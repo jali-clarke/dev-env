@@ -5,6 +5,5 @@ let
 in
 pkgs.writeShellScriptBin "install_dev_env" ''
   ${artifactDeployer { inherit dev-env-image; }}/bin/deploy_artifact
-  ${manifests.applyCacheManifests}/bin/apply_cache_manifests
   ${manifests.applyDeploymentManifestsWithImage { inherit (dev-env-image) imageNameWithTag deploymentEnv; }}/bin/apply_deployment_manifests
 ''

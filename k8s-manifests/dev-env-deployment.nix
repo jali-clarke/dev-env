@@ -29,25 +29,6 @@ pkgs.writeText "dev_env_deployment.yaml" ''
       port: 8888
       targetPort: dev-port
   ---
-  apiVersion: v1
-  kind: ServiceAccount
-  metadata:
-    name: coder-service-account
-    namespace: dev
-  ---
-  apiVersion: rbac.authorization.k8s.io/v1
-  kind: ClusterRoleBinding
-  metadata:
-    name: coder-service-account
-  roleRef:
-    apiGroup: rbac.authorization.k8s.io
-    kind: ClusterRole
-    name: cluster-admin
-  subjects:
-    - kind: ServiceAccount
-      name: coder-service-account
-      namespace: dev
-  ---
   apiVersion: apps/v1
   kind: Deployment
   metadata:

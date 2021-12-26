@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: dev-env-cache
+  namespace: dev
 spec:
   type: ClusterIP
   selector:

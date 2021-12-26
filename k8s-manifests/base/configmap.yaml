@@ -25,3 +25,63 @@ data:
     chmod 644 /etc/ssh/ssh_host_rsa_key.pub
 
     exec `which sshd` -D -p 22 -f /sshd_config_mnt/sshd_config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: file-browser-nginx-config
+  namespace: dev
+data:
+  nginx.conf: |
+    user  nginx;
+    worker_processes  1;
+
+    error_log  /var/log/nginx/error.log warn;
+    pid        /var/run/nginx.pid;
+
+    events {
+      worker_connections  1024;
+    }
+    http {
+      server {
+        root /www/data;
+
+        location / {
+          types {
+            video/webm webm;
+          }
+
+          autoindex on;
+        }
+      }
+    }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: file-browser-nginx-staging-config
+  namespace: dev
+data:
+  nginx.conf: |
+    user  nginx;
+    worker_processes  1;
+
+    error_log  /var/log/nginx/error.log warn;
+    pid        /var/run/nginx.pid;
+
+    events {
+      worker_connections  1024;
+    }
+    http {
+      server {
+        root /www/data;
+
+        location / {
+          types {
+            video/webm webm;
+          }
+
+          autoindex on;
+        }
+      }
+    }

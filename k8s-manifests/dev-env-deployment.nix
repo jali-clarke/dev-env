@@ -89,36 +89,6 @@ pkgs.writeText "dev_env_deployment.yaml" ''
           configMap:
             name: ${fileBrowserConfigName}
   ---
-  apiVersion: v1
-  kind: ConfigMap
-  metadata:
-    name: ${fileBrowserConfigName}
-    namespace: dev
-  data:
-    nginx.conf: |
-      user  nginx;
-      worker_processes  1;
-
-      error_log  /var/log/nginx/error.log warn;
-      pid        /var/run/nginx.pid;
-
-      events {
-        worker_connections  1024;
-      }
-      http {
-        server {
-          root /www/data;
-
-          location / {
-            types {
-              video/webm webm;
-            }
-
-            autoindex on;
-          }
-        }
-      }
-  ---
   apiVersion: networking.k8s.io/v1
   kind: Ingress
   metadata:

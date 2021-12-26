@@ -24,4 +24,3 @@ data:
     chmod 644 /etc/ssh/ssh_host_rsa_key.pub
 
     exec `which sshd` -D -p 22 -f /sshd_config_mnt/sshd_config
----

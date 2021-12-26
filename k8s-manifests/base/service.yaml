@@ -11,4 +11,3 @@ spec:
   - name: ssh
     port: 22
     targetPort: ssh
----

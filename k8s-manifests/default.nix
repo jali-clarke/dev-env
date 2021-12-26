@@ -4,16 +4,12 @@ let
   kubectl = "${pkgs.kubectl}/bin/kubectl";
 
   applyBaseManifests =
-    let
-      volumesAndNamespaceManifest = import ./dev-env-volumes.nix { inherit pkgs; };
-    in
     pkgs.writeShellScriptBin "apply_base_manifests" ''
       if [ -z "$SECRETS_PASSPHRASE" ]; then
         echo "please set env var SECRETS_PASSPHRASE"
         exit 1
       fi
 
-      ${kubectl} apply -f ${volumesAndNamespaceManifest}
       ${ccat} -E SECRETS_PASSPHRASE -c ${./dev_env_secrets.yaml.cpt} | ${kubectl} apply -f -
     '';
 

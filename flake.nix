@@ -41,7 +41,6 @@
             prodInstaller = installer {
               dev-env-image = imageBuilder { deploymentEnv = "prod"; };
             };
-            cacheInstaller = (import ./k8s-manifests { inherit pkgs; }).applyCacheManifests;
           };
 
           devShell.${system} = pkgs.mkShell {

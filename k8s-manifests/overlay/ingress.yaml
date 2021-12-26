@@ -1,0 +1,123 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  namespace: dev
+spec:
+  ingressClassName: internal
+  rules:
+  - host: dev.lan
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: coder-service
+            port:
+              number: 8080
+  - host: files.dev.lan
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: coder-service
+            port:
+              number: 80
+  - host: web.dev.lan
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: coder-service
+            port:
+              number: 8888
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-external
+  namespace: dev
+spec:
+  ingressClassName: external
+  tls:
+  - hosts:
+    - dev.jali-clarke.ca
+    secretName: jali-clarke-ca
+  rules:
+  - host: dev.jali-clarke.ca
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: coder-service
+            port:
+              number: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-staging
+  namespace: dev
+spec:
+  ingressClassName: internal
+  rules:
+  - host: dev-staging.lan
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: coder-staging-service
+            port:
+              number: 8080
+  - host: files.dev-staging.lan
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: coder-staging-service
+            port:
+              number: 80
+  - host: web.dev-staging.lan
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: coder-staging-service
+            port:
+              number: 8888
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-staging-external
+  namespace: dev
+spec:
+  ingressClassName: external
+  tls:
+  - hosts:
+    - dev-staging.jali-clarke.ca
+    secretName: jali-clarke-ca
+  rules:
+  - host: dev-staging.jali-clarke.ca
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: coder-staging-service
+            port:
+              number: 8080

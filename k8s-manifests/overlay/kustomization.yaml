@@ -3,5 +3,6 @@ kind: Kustomization
 bases:
 - ../base
 resources:
+- ingress.yaml
 - persistentvolume.yaml
 - persistentvolumeclaim.yaml

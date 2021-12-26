@@ -14,12 +14,8 @@ let
     '';
 
   applyDeploymentManifestsWithImage = { imageNameWithTag, deploymentEnv }:
-    let
-      deploymentManifest = import ./dev-env-deployment.nix { inherit pkgs imageNameWithTag deploymentEnv; };
-    in
     pkgs.writeShellScriptBin "apply_deployment_manifests" ''
       ${applyBaseManifests}/bin/apply_base_manifests
-      ${kubectl} apply -f ${deploymentManifest}
     '';
 in
 {

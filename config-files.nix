@@ -1,4 +1,4 @@
-{ pkgs, nixpkgsPath, user, home }:
+{ pkgs, nixpkgsPath, user, home, cacheHostname }:
 let
   usersFiles = import ./users.nix { inherit pkgs user home; };
 
@@ -7,7 +7,7 @@ let
     set -f # disable globbing
     export IFS=' '
 
-    DESTINATION="ssh://root@dev-env-cache"
+    DESTINATION="ssh://root@${cacheHostname}"
 
     echo "Uploading signed paths to $DESTINATION - " $OUT_PATHS
     exec ${pkgs.nixUnstable}/bin/nix copy --to "$DESTINATION" $OUT_PATHS
@@ -23,7 +23,7 @@ usersFiles ++ [
       post-build-hook = ${uploadToCache}/bin/upload_to_cache
       sandbox = false
       secret-key-files = /tmp/secrets/cache_signing_key/signing_key
-      substituters = ssh://root@dev-env-cache?priority=10 https://cache.nixos.org?priority=100
+      substituters = ssh://root@${cacheHostname}?priority=10 https://cache.nixos.org?priority=100
     ''
   )
   (

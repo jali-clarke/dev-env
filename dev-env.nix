@@ -1,4 +1,4 @@
-{ pkgs, nixpkgsPath, tag }:
+{ pkgs, nixpkgsPath, tag, cacheHostname }:
 let
   user = "root";
   home = "root";
@@ -6,7 +6,7 @@ let
 
   inherit (pkgs) buildPackages dockerTools lib;
 
-  configFiles = import ./config-files.nix { inherit pkgs nixpkgsPath user home; };
+  configFiles = import ./config-files.nix { inherit pkgs nixpkgsPath user home cacheHostname; };
   codeServerExts = import ./extensions.nix { inherit pkgs; };
 
   restartPodScript = pkgs.writeShellScriptBin "restart_pod" ''
@@ -21,7 +21,7 @@ let
     mkdir -p /${home}/.ssh /${home}/.local/share/code-server
     cp /tmp/secrets/ssh/id_rsa /${home}/.ssh
     chmod 400 /${home}/.ssh/id_rsa
-    echo -n "dev-env-cache " >> /${home}/.ssh/known_hosts
+    echo -n "${cacheHostname} " >> /${home}/.ssh/known_hosts
     cat /tmp/secrets/cache_ssh_host_key/ssh_host_rsa_key.pub >> /${home}/.ssh/known_hosts
     chmod 600 /${home}/.ssh/known_hosts
 

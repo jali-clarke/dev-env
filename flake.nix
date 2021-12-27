@@ -6,6 +6,7 @@
   outputs = { self, nixpkgs, comma, homelab-config }:
     let
       nixpkgsPath = "${nixpkgs}";
+      cacheHostname = "cache.nix-cache";
 
       outputs' = system:
         let
@@ -28,7 +29,7 @@
           };
 
           # assertion will fail if the source tree is not clean
-          builtImage = assert self.sourceInfo ? rev; import ./dev-env.nix { inherit pkgs nixpkgsPath; tag = self.sourceInfo.rev; };
+          builtImage = assert self.sourceInfo ? rev; import ./dev-env.nix { inherit pkgs nixpkgsPath cacheHostname; tag = self.sourceInfo.rev; };
         in
         {
           defaultPackage.${system} = self.packages.${system}.deployer;

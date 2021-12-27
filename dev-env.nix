@@ -34,6 +34,7 @@ let
     pkgs.comma
     pkgs.coreutils
     pkgs.curl
+    pkgs.diffutils
     pkgs.direnv
     pkgs.dnsutils
     pkgs.git

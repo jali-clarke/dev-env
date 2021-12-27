@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
 - clusterrolebinding.yaml
 - configmap.yaml
-- deployment.yaml
 - rollout.yaml
 - service.yaml
 - serviceaccount.yaml

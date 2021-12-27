@@ -7,9 +7,6 @@ resources:
 - persistentvolume.yaml
 - persistentvolumeclaim.yaml
 - secrets.yaml
-patches:
-- image-patch.yaml
-- volumes-patch.yaml
 patchesJson6902:
 - target:
     group: argoproj.io

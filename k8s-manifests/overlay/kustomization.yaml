@@ -10,3 +10,25 @@ resources:
 patches:
 - image-patch.yaml
 - volumes-patch.yaml
+patchesJson6902:
+- target:
+    group: argoproj.io
+    version: v1alpha1
+    kind: Rollout
+    name: coder
+    namespace: dev
+  path: image-patch.json6902.yaml
+- target:
+    group: argoproj.io
+    version: v1alpha1
+    kind: Rollout
+    name: coder
+    namespace: dev
+  path: volumes-patch-coder.json6902.yaml
+- target:
+    group: argoproj.io
+    version: v1alpha1
+    kind: Rollout
+    name: dev-env-cache
+    namespace: dev
+  path: volumes-patch-cache.json6902.yaml

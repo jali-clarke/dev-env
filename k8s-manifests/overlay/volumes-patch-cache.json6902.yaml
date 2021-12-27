@@ -1,0 +1,20 @@
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: coder-password
+        key: coder-password
+- op: add
+  path: /spec/template/spec/volumes/-
+  value:
+    name: ssh-key
+    secret:
+      secretName: git-ssh-key
+- op: add
+  path: /spec/template/spec/volumes/-
+  value:
+    name: ssh-host-key
+    secret:
+      secretName: cache-ssh-host-key

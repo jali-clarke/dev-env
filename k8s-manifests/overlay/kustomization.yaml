@@ -7,3 +7,5 @@ resources:
 - persistentvolume.yaml
 - persistentvolumeclaim.yaml
 - secrets.yaml
+patches:
+- volumes-patch.yaml

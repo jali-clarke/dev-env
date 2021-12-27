@@ -46,9 +46,7 @@ spec:
         env:
         - name: PASSWORD
           valueFrom:
-            secretKeyRef:
-              name: coder-password
-              key: coder-password
+            secretKeyRef: {} # patch me
         ports:
         - name: ssh
           containerPort: 22
@@ -65,11 +63,9 @@ spec:
       - name: nix-dir
         emptyDir: {}
       - name: ssh-key
-        secret:
-          secretName: git-ssh-key
+        secret: {} # patch me
       - name: ssh-host-key
-        secret:
-          secretName: cache-ssh-host-key
+        secret: {} # patch me
       - name: sshd-config
         configMap:
           name: dev-env-cache-sshd-config
@@ -106,9 +102,7 @@ spec:
         env:
         - name: PASSWORD
           valueFrom:
-            secretKeyRef:
-              name: coder-password
-              key: coder-password
+            secretKeyRef: {} # patch me
         volumeMounts:
         - name: dev-data
           mountPath: /root/project
@@ -139,17 +133,13 @@ spec:
           containerPort: 80
       volumes:
       - name: dev-data
-        persistentVolumeClaim:
-          claimName: dev-data-pvc
+        persistentVolumeClaim: {} # patch me
       - name: ssh-key
-        secret:
-          secretName: git-ssh-key
+        secret: {} # patch me
       - name: cache-ssh-host-key
-        secret:
-          secretName: cache-ssh-host-key
+        secret: {} # patch me, should match similar for the cache deployment
       - name: cache-signing-key
-        secret:
-          secretName: cache-signing-key
+        secret: {} # patch me, should match similar for the cache deployment
       - name: nginx-config
         configMap:
           name: file-browser-nginx-config

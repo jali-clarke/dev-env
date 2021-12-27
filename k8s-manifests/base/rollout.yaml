@@ -19,23 +19,6 @@ spec:
     spec:
       nodeSelector:
         kubernetes.io/arch: amd64
-      initContainers:
-      - name: nix-pre-populate
-        image: nixos/nix:2.3.12
-        imagePullPolicy: IfNotPresent
-        command:
-        - nix-shell
-        - -p
-        - rsync
-        - --run
-        args:
-        - "rsync --info=progress2 -auvz /nix/ /to-populate-nix"
-        ports:
-        - name: http
-          containerPort: 80
-        volumeMounts:
-        - name: nix-dir
-          mountPath: /to-populate-nix
       containers:
       - name: sshd
         image: nixos/nix:2.3.12
@@ -52,8 +35,6 @@ spec:
         - name: ssh
           containerPort: 22
         volumeMounts:
-        - name: nix-dir
-          mountPath: /nix
         - name: sshd-config
           mountPath: /sshd_config_mnt
         - name: ssh-key
@@ -61,8 +42,6 @@ spec:
         - name: ssh-host-key
           mountPath: /ssh_host_key_mnt
       volumes:
-      - name: nix-dir
-        emptyDir: {}
       - name: sshd-config
         configMap:
           name: dev-env-cache-sshd-config

@@ -1,4 +1,4 @@
-{ pkgs, nixpkgsPath, tag }: { deploymentEnv }:
+{ pkgs, nixpkgsPath, tag }:
 let
   user = "root";
   home = "root";
@@ -80,7 +80,6 @@ let
   };
 
   passthru = {
-    inherit deploymentEnv;
     imageNameWithTag = "${imageName}:${dev-env-image.imageTag}";
   };
 in

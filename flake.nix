@@ -28,19 +28,14 @@
           };
 
           # assertion will fail if the source tree is not clean
-          imageBuilder = assert self.sourceInfo ? rev; import ./dev-env.nix { inherit pkgs nixpkgsPath; tag = self.sourceInfo.rev; };
-          installer = import ./installer.nix { inherit pkgs; };
+          builtImage = assert self.sourceInfo ? rev; import ./dev-env.nix { inherit pkgs nixpkgsPath; tag = self.sourceInfo.rev; };
         in
         {
-          defaultPackage.${system} = self.packages.${system}.stagingInstaller;
+          defaultPackage.${system} = self.packages.${system}.deployer;
 
-          packages.${system} = {
-            stagingInstaller = installer {
-              dev-env-image = imageBuilder { deploymentEnv = "staging"; };
-            };
-            prodInstaller = installer {
-              dev-env-image = imageBuilder { deploymentEnv = "prod"; };
-            };
+          packages.${system}.deployer = import ./deployer.nix {
+            inherit pkgs;
+            dev-env-image = builtImage;
           };
 
           devShell.${system} = pkgs.mkShell {

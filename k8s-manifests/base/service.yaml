@@ -42,7 +42,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: coder-staging
+    app: coder
   clusterIP: None
   ports:
   - name: coder

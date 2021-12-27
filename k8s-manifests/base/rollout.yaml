@@ -77,6 +77,7 @@ spec:
   strategy:
     blueGreen: 
       activeService: coder-service
+      previewService: coder-staging-service
       autoPromotionEnabled: false
   replicas: 1
   selector:

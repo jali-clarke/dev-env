@@ -8,4 +8,5 @@ resources:
 - persistentvolumeclaim.yaml
 - secrets.yaml
 patches:
+- image-patch.yaml
 - volumes-patch.yaml

@@ -5,18 +5,8 @@ metadata:
   name: coder
   namespace: dev
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: coder
   template:
-    metadata:
-      labels:
-        app: coder
     spec:
-      serviceAccountName: coder-service-account
-      nodeSelector:
-        kubernetes.io/arch: amd64
       containers:
       - name: coder
         image: nexus.lan:5000/dev-env:2b575224452a0515994adb91987d211797d78a70

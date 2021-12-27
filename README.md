@@ -14,10 +14,8 @@ i have a k8s cluster at home and i'd like to have a persistent linux-y dev envir
 * an accessible container image registry `nexus.lan:5000`
 * a k8s cluster
 * an nfs file server at `atlas.lan` with appropriate shares set up
-* appropriate credentials
+* appropriate secrets via hashicorp vault
 
 ### instructions
 
-for a staging image i.e. testing out changes, do `nix run github:jali-clarke/dev-env#stagingInstaller`.  for a "prod" image, do `nix run github:jali-clarke/dev-env#prodInstaller`.
-
-if you've cloned the repo locally and are dev-ing on it, you can do `nix run .#stagingInstaller` and `nix run .#prodInstaller` respectively.
+`nix run .` to build, push, and deploy (via argo-rollouts + argo cd)

@@ -9,7 +9,7 @@ data:
     PermitRootLogin yes
     PermitUserEnvironment yes
   startup.sh: |
-    #!/bin/bash -e
+    #!/bin/bash -xe
     echo -ne "$PASSWORD\n$PASSWORD" | passwd root
     
     mkdir -p /root/.ssh

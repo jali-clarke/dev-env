@@ -1,3 +1,0 @@
-- op: replace
-  path: /spec/template/spec/containers/0/image
-  value: "nexus.lan:5000/dev-env:f33d3bc08d71c851344b980dddd4ac6fb19129fb"

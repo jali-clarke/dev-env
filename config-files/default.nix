@@ -67,7 +67,7 @@ usersFiles ++ [
     ''
   )
   (
-    pkgs.writeTextDir "${home}/.gitconfig" ''
+    pkgs.writeTextDir "${home}/.config/git/config" ''
       [user]
         email = jinnah.ali-clarke@outlook.com
         name = jali-clarke

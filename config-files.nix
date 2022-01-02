@@ -90,6 +90,9 @@ usersFiles ++ [
         ],
         "workbench.colorTheme": "Default Dark+",
         "workbench.startupEditor": "none",
+        "[haskell]": {
+          "editor.tabSize": 2
+        },
         "[nix]": {
           "editor.tabSize": 2
         }

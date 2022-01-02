@@ -13,6 +13,7 @@ let
     exec ${pkgs.nixUnstable}/bin/nix copy --to "$DESTINATION" $OUT_PATHS
   '';
 
+  direnvConfig = homeManagerConfigWithUser.config.xdg.configFile."direnv/direnvrc";
   gitConfig = homeManagerConfigWithUser.config.xdg.configFile."git/config";
   vscodeConfig = homeManagerConfigWithUser.config.home.file."/root/.config/Code/User/settings.json";
 in
@@ -59,9 +60,7 @@ usersFiles ++ [
     ''
   )
   (
-    pkgs.writeTextDir "${home}/.direnvrc" ''
-      source /share/nix-direnv/direnvrc
-    ''
+    pkgs.writeTextDir "${home}/${direnvConfig.target}" direnvConfig.text
   )
   (
     pkgs.writeTextDir "${home}/.ghci" ''
@@ -73,6 +72,7 @@ usersFiles ++ [
     pkgs.writeTextDir "${home}/${gitConfig.target}" gitConfig.text
   )
   (
+    # can't use same approach as for direnv and git; vscodeConfig.text is null for some reason
     pkgs.runCommandLocal "code-server-settings.json" { } ''
       path=$out/${home}/.local/share/code-server/User/settings.json
       mkdir -p "$(dirname "$path")"

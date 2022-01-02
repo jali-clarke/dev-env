@@ -10,7 +10,7 @@ let
   codeServerExts = import ./extensions.nix { inherit pkgs; };
 
   restartPodScript = pkgs.writeShellScriptBin "restart_pod" ''
-    exec "${pkgs.kubectl}/bin/kubectl" -n dev delete pod $(hostname)
+    exec "${pkgs.kubectl}/bin/kubectl" -n dev delete pod/$(hostname)
   '';
 
   entrypoint = pkgs.writeShellScriptBin "entrypoint" ''

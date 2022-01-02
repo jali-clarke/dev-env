@@ -1,9 +1,14 @@
 {
   inputs.nixpkgs.url = "github:NixOS/nixpkgs";
   inputs.homelab-config.url = "github:jali-clarke/homelab-config/weedle-known-good";
-  inputs.comma.url = "github:jali-clarke/comma/flakify";
 
-  outputs = { self, nixpkgs, comma, homelab-config }:
+  inputs.home-manager.url = "github:nix-community/home-manager/release-21.05";
+  inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+  inputs.comma.url = "github:jali-clarke/comma/flakify";
+  inputs.dotfiles.url = "github:jali-clarke/dotfiles";
+
+  outputs = { self, nixpkgs, homelab-config, home-manager, comma, dotfiles }:
     let
       nixpkgsPath = "${nixpkgs}";
       cacheHostname = "cache.nix-cache";
@@ -29,7 +34,21 @@
           };
 
           # assertion will fail if the source tree is not clean
-          builtImage = assert self.sourceInfo ? rev; import ./dev-env.nix { inherit pkgs nixpkgsPath cacheHostname; tag = self.sourceInfo.rev; };
+          builtImage = assert self.sourceInfo ? rev; import ./dev-env.nix {
+            inherit pkgs nixpkgsPath cacheHostname;
+            tag = self.sourceInfo.rev;
+            homeManagerConfig = { username, homeDirectory }:
+              home-manager.lib.homeManagerConfiguration {
+                inherit system username homeDirectory;
+                configuration = {
+                  imports = [ dotfiles.homeManagerModule ];
+                  programs.git = {
+                    userName = "jali-clarke";
+                    userEmail = "jinnah.ali-clarke@outlook.com";
+                  };
+                };
+              };
+          };
         in
         {
           defaultPackage.${system} = self.packages.${system}.deployer;

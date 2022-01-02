@@ -1,5 +1,10 @@
-{ pkgs, nixpkgsPath, user, home, cacheHostname }:
+{ pkgs, nixpkgsPath, user, home, cacheHostname, homeManagerConfig }:
 let
+  homeManagerConfigWithUser = homeManagerConfig {
+    username = user;
+    homeDirectory = "/${home}"; # `home` is not prefixed with `/` when pased in
+  };
+
   usersFiles = import ./users.nix { inherit pkgs user home; };
 
   uploadToCache = pkgs.writeShellScriptBin "upload_to_cache" ''
@@ -12,6 +17,8 @@ let
     echo "Uploading signed paths to $DESTINATION - " $OUT_PATHS
     exec ${pkgs.nixUnstable}/bin/nix copy --to "$DESTINATION" $OUT_PATHS
   '';
+
+  gitConfig = homeManagerConfigWithUser.config.xdg.configFile."git/config";
 in
 usersFiles ++ [
   (
@@ -67,7 +74,7 @@ usersFiles ++ [
     ''
   )
   (
-    import ./git.nix { inherit pkgs home; }
+    pkgs.writeTextDir "${home}/${gitConfig.target}" gitConfig.text
   )
   (
     import ./vscode.nix { inherit pkgs home; }

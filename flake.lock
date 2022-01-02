@@ -41,6 +41,21 @@
         "type": "github"
       }
     },
+    "dotfiles": {
+      "locked": {
+        "lastModified": 1641138728,
+        "narHash": "sha256-QgBTsqGcr53jkXlpW2pALgaQtH6chB2FUrVeyChZ+Iw=",
+        "owner": "jali-clarke",
+        "repo": "dotfiles",
+        "rev": "b0cb61ed3e93f7c1e73fb0e453240f478e00af41",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jali-clarke",
+        "repo": "dotfiles",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1631561581,
@@ -53,6 +68,27 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1638281721,
+        "narHash": "sha256-d3vAVFG6zov9NwjSuYntBiD+I5KjJLwX09c7uAzbONI=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "7329ffc6e911106494183557fc249180d5422929",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "release-21.05",
+        "repo": "home-manager",
         "type": "github"
       }
     },
@@ -177,6 +213,8 @@
     "root": {
       "inputs": {
         "comma": "comma",
+        "dotfiles": "dotfiles",
+        "home-manager": "home-manager",
         "homelab-config": "homelab-config",
         "nixpkgs": "nixpkgs_4"
       }

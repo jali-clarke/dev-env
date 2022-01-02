@@ -1,4 +1,4 @@
-{ pkgs, nixpkgsPath, tag, cacheHostname }:
+{ pkgs, nixpkgsPath, tag, cacheHostname, homeManagerConfig }:
 let
   user = "root";
   home = "root";
@@ -6,7 +6,7 @@ let
 
   inherit (pkgs) buildPackages dockerTools lib;
 
-  configFiles = import ./config-files { inherit pkgs nixpkgsPath user home cacheHostname; };
+  configFiles = import ./config-files { inherit pkgs nixpkgsPath user home cacheHostname homeManagerConfig; };
   codeServerExts = import ./extensions.nix { inherit pkgs; };
 
   restartPodScript = pkgs.writeShellScriptBin "restart_pod" ''
@@ -38,6 +38,7 @@ let
     pkgs.direnv
     pkgs.dnsutils
     pkgs.git
+    pkgs.git-lfs
     pkgs.gnugrep
     pkgs.gnused
     pkgs.gzip

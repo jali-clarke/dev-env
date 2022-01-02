@@ -67,47 +67,10 @@ usersFiles ++ [
     ''
   )
   (
-    pkgs.writeTextDir "${home}/.config/git/config" ''
-      [user]
-        email = jinnah.ali-clarke@outlook.com
-        name = jali-clarke
-      [pull]
-        rebase = false
-      [init]
-        defaultBranch = master
-      [alias]
-        autosquash = !GIT_SEQUENCE_EDITOR=true git rebase -i --autosquash
-        branchc = branch --show-current
-        brancho = !echo origin/$(git branchc)
-        diffc = !git diff $1~1
-        diffo = !git diff $(git brancho)
-        fixup = commit --fixup
-        fixupa = commit -a --fixup
-        pushf = push --force-with-lease
-        pushuo = !git push -u origin $(git branchc)
-    ''
+    import ./git.nix { inherit pkgs home; }
   )
   (
-    pkgs.writeTextDir "${home}/.local/share/code-server/User/settings.json" ''
-      {
-        "files.autoSave": "afterDelay",
-        "workbench.editor.enablePreview": false,
-        "explorer.openEditors.visible": 0,
-        "files.eol": "\n",
-        "terminal.integrated.shell.linux": "${pkgs.bashInteractive}/bin/bash",
-        "terminal.integrated.shellArgs.linux": [
-          "--login"
-        ],
-        "workbench.colorTheme": "Default Dark+",
-        "workbench.startupEditor": "none",
-        "[haskell]": {
-          "editor.tabSize": 2
-        },
-        "[nix]": {
-          "editor.tabSize": 2
-        }
-      }
-    ''
+    import ./vscode.nix { inherit pkgs home; }
   )
   (
     pkgs.writeTextDir "${home}/.profile" ''

@@ -1,10 +1,5 @@
-{ pkgs, nixpkgsPath, user, home, cacheHostname, homeManagerConfig }:
+{ pkgs, nixpkgsPath, user, home, cacheHostname, homeManagerConfigWithUser }:
 let
-  homeManagerConfigWithUser = homeManagerConfig {
-    username = user;
-    homeDirectory = "/${home}"; # `home` is not prefixed with `/` when pased in
-  };
-
   usersFiles = import ./users.nix { inherit pkgs user home; };
 
   uploadToCache = pkgs.writeShellScriptBin "upload_to_cache" ''

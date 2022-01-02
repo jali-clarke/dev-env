@@ -1,19 +1,11 @@
-{ pkgs }:
+{ pkgs, homeManagerConfigWithUser }:
 let
-  lib = pkgs.lib;
-  stdenv = pkgs.stdenv;
-  exts = pkgs.vscode-extensions;
-
-  codeServerExts = [
-    exts.bbenoist.nix
-    exts.justusadam.language-haskell
-  ];
+  codeServerExts = homeManagerConfigWithUser.config.programs.vscode.extensions;
+  doLink = extDerivation: ''
+    ln -s ${extDerivation}/share/vscode/extensions/${extDerivation.vscodeExtUniqueId} $out/extensions/${extDerivation.vscodeExtUniqueId}
+  '';
 in
 pkgs.runCommand "dev-env-code-server-exts" { } ''
-    mkdir -p $out/extensions
-    ${lib.concatMapStrings
-  (extDerivation: ''
-      ln -s ${extDerivation}/share/vscode/extensions/${extDerivation.vscodeExtUniqueId} $out/extensions/${extDerivation.vscodeExtUniqueId}
-    '')
-  codeServerExts}
+  mkdir -p $out/extensions
+  ${pkgs.lib.concatMapStrings doLink codeServerExts}
 ''

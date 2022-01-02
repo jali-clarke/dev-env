@@ -1,13 +1,18 @@
 { pkgs, nixpkgsPath, tag, cacheHostname, homeManagerConfig }:
 let
+  inherit (pkgs) buildPackages dockerTools lib;
+
   user = "root";
   home = "root";
   certPath = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
 
-  inherit (pkgs) buildPackages dockerTools lib;
+  homeManagerConfigWithUser = homeManagerConfig {
+    username = user;
+    homeDirectory = "/${home}";
+  };
 
-  configFiles = import ./config-files { inherit pkgs nixpkgsPath user home cacheHostname homeManagerConfig; };
-  codeServerExts = import ./extensions.nix { inherit pkgs; };
+  configFiles = import ./config-files { inherit pkgs nixpkgsPath user home cacheHostname homeManagerConfigWithUser; };
+  codeServerExts = import ./extensions.nix { inherit pkgs homeManagerConfigWithUser; };
 
   restartPodScript = pkgs.writeShellScriptBin "restart_pod" ''
     exec "${pkgs.kubectl}/bin/kubectl" -n dev delete pod/$(hostname)

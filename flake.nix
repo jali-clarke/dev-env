@@ -40,26 +40,7 @@
             homeManagerConfig = { username, homeDirectory }:
               home-manager.lib.homeManagerConfiguration {
                 inherit system username homeDirectory;
-                configuration = {
-                  imports = [ dotfiles.homeManagerModule ];
-
-                  programs.git = {
-                    userName = "jali-clarke";
-                    userEmail = "jinnah.ali-clarke@outlook.com";
-                  };
-
-                  programs.vscode.userSettings = {
-                    # more provided via dotfiles
-                    "explorer.openEditors.visible" = 0;
-                    "files.eol" = "\n";
-                    "terminal.integrated.shell.linux" = "${pkgs.bashInteractive}/bin/bash";
-                    "terminal.integrated.shellArgs.linux" = [
-                      "--login"
-                    ];
-                    "workbench.colorTheme" = "Default Dark+";
-                    "workbench.startupEditor" = "none";
-                  };
-                };
+                configuration = import ./home.nix dotfiles.homeManagerModule;
               };
           };
         in

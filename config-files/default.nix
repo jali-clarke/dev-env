@@ -19,6 +19,7 @@ let
   '';
 
   gitConfig = homeManagerConfigWithUser.config.xdg.configFile."git/config";
+  vscodeConfig = homeManagerConfigWithUser.config.home.file."/root/.config/Code/User/settings.json";
 in
 usersFiles ++ [
   (
@@ -77,7 +78,11 @@ usersFiles ++ [
     pkgs.writeTextDir "${home}/${gitConfig.target}" gitConfig.text
   )
   (
-    import ./vscode.nix { inherit pkgs home; }
+    pkgs.runCommandLocal "code-server-settings.json" { } ''
+      path=$out/${home}/.local/share/code-server/User/settings.json
+      mkdir -p "$(dirname "$path")"
+      cp "${vscodeConfig.source}" "$path"
+    ''
   )
   (
     pkgs.writeTextDir "${home}/.profile" ''

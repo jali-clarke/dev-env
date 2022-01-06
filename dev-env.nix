@@ -31,7 +31,7 @@ let
     chmod 600 /${home}/.ssh/known_hosts
 
     ln -s ${codeServerExts}/extensions /${home}/.local/share/code-server/extensions
-    ${pkgs.code-server}/bin/code-server --disable-telemetry --bind-addr 0.0.0.0:8080 /${home}/project
+    exec ${pkgs.code-server}/bin/code-server --disable-telemetry --bind-addr 0.0.0.0:8080 $EXTRA_ARGS /${home}/project
   '';
 
   pkgsContents = [

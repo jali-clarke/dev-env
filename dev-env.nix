@@ -35,7 +35,6 @@ let
   '';
 
   pkgsContents = [
-    pkgs.bashInteractive
     pkgs.comma
     pkgs.coreutils
     pkgs.curl
@@ -86,6 +85,7 @@ let
       "SSL_CERT_FILE=${certPath}"
       "SYSTEM_CERTIFICATE_PATH=${certPath}"
       "NIX_PATH=nixpkgs=${nixpkgsPath}"
+      "LOCALE_ARCHIVE=${pkgs.glibcLocales}/lib/locale/locale-archive"
     ];
   };
 

@@ -41,6 +41,7 @@ let
     pkgs.diffutils
     pkgs.direnv
     pkgs.dnsutils
+    pkgs.findutils
     pkgs.fzf
     pkgs.git
     pkgs.git-lfs

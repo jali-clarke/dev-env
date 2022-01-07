@@ -82,7 +82,13 @@ usersFiles ++ [
     pkgs.writeTextDir "${home}/${zshenvConfig.target}" zshenvConfig.text
   )
   (
-    pkgs.writeTextDir "${home}/${zshrcConfig.target}" zshrcConfig.text
+    pkgs.runCommandLocal ".zshrc" { } ''
+      path=$out/${home}/${zshrcConfig.target}
+      mkdir -p "$(dirname "$path")"
+
+      # remove session vars source - it's not relevant in the container
+      ${pkgs.gnused}/bin/sed '/\.nix-profile\/etc\/profile\.d\/hm-session-vars\.sh/d' "${zshrcConfig.source}" > "$path"
+    ''
   )
   (
     pkgs.writeTextDir "${home}/.profile" ''

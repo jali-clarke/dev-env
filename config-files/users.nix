@@ -1,7 +1,7 @@
 { pkgs, user, home }:
 let
   passwd = pkgs.writeTextDir "etc/passwd" ''
-    ${user}:x:0:0:${user}:/${home}:${pkgs.bashInteractive}/bin/bash
+    ${user}:x:0:0:${user}:/${home}:${pkgs.zsh}/bin/zsh
     nobody:x:65534:65534:nobody:/:/sbin/nologin
     nixbld1:x:30001:30000:Nix build user 1:/var/empty:/sbin/nologin
     nixbld2:x:30002:30000:Nix build user 2:/var/empty:/sbin/nologin

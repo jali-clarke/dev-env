@@ -10,8 +10,9 @@ baseModule:
   programs.vscode.userSettings = {
     "explorer.openEditors.visible" = 0;
     "files.eol" = "\n";
-    "terminal.integrated.shell.linux" = "${pkgs.bashInteractive}/bin/bash";
+    "terminal.integrated.shell.linux" = "${pkgs.zsh}/bin/zsh";
     "terminal.integrated.shellArgs.linux" = [
+      "--interactive"
       "--login"
     ];
     "workbench.colorTheme" = "Default Dark+";

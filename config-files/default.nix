@@ -16,6 +16,8 @@ let
   direnvConfig = homeManagerConfigWithUser.config.xdg.configFile."direnv/direnvrc";
   gitConfig = homeManagerConfigWithUser.config.xdg.configFile."git/config";
   vscodeConfig = homeManagerConfigWithUser.config.home.file."/root/.config/Code/User/settings.json";
+  zshenvConfig = homeManagerConfigWithUser.config.home.file.".zshenv";
+  zshrcConfig = homeManagerConfigWithUser.config.home.file.".zshrc";
 in
 usersFiles ++ [
   (
@@ -36,9 +38,6 @@ usersFiles ++ [
       icmp    1       ICMP            # internet control message protocol
       igmp    2       IGMP            # Internet Group Management
     ''
-  )
-  (
-    import ./bashrc.nix { inherit pkgs home; }
   )
   (
     pkgs.writeTextDir "${home}/.config/nix/registry.json" ''
@@ -80,8 +79,14 @@ usersFiles ++ [
     ''
   )
   (
+    pkgs.writeTextDir "${home}/${zshenvConfig.target}" zshenvConfig.text
+  )
+  (
+    pkgs.writeTextDir "${home}/${zshrcConfig.target}" zshrcConfig.text
+  )
+  (
     pkgs.writeTextDir "${home}/.profile" ''
-      . "/${home}/.bashrc"
+      . "/${home}/.zshrc"
     ''
   )
 ]

@@ -42,6 +42,7 @@ let
     pkgs.diffutils
     pkgs.direnv
     pkgs.dnsutils
+    pkgs.fzf
     pkgs.git
     pkgs.git-lfs
     pkgs.gnugrep
@@ -58,10 +59,12 @@ let
     pkgs.nix-direnv
     pkgs.nixos-generators
     pkgs.nmon
+    pkgs.oh-my-zsh
     pkgs.openssh
     pkgs.ps
     pkgs.vim
     pkgs.which
+    pkgs.zsh
   ];
 
   otherContents = [

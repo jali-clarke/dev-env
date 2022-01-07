@@ -72,7 +72,7 @@ let
   ];
 
   contents = pkgsContents ++ otherContents ++ configFiles;
-  imageName = "nexus.lan:5000/dev-env";
+  imageName = "nexus.jali-clarke.ca:5000/dev-env";
 
   dev-env-image = dockerTools.buildLayeredImageWithNixDb {
     name = imageName;

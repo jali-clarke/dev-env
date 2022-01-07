@@ -11,9 +11,9 @@ i have a k8s cluster at home and i'd like to have a persistent linux-y dev envir
 ### prerequisites
 
 * nix with [flakes](https://nixos.wiki/wiki/Flakes) support
-* an accessible container image registry `nexus.lan:5000`
+* an accessible container image registry `nexus.jali-clarke.ca:5000`
 * a k8s cluster
-* an nfs file server at `atlas.lan` with appropriate shares set up
+* an nfs file server at `atlas.jali-clarke.ca` with appropriate shares set up
 * appropriate secrets via hashicorp vault
 
 ### instructions

@@ -2,13 +2,11 @@
   inputs.nixpkgs.url = "github:NixOS/nixpkgs";
   inputs.homelab-config.url = "github:jali-clarke/homelab-config/weedle-known-good";
 
-  inputs.home-manager.url = "github:nix-community/home-manager/release-21.05";
-  inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
   inputs.comma.url = "github:jali-clarke/comma/flakify";
   inputs.dotfiles.url = "github:jali-clarke/dotfiles";
+  inputs.dotfiles.inputs.nixpkgs.follows = "nixpkgs";
 
-  outputs = { self, nixpkgs, homelab-config, home-manager, comma, dotfiles }:
+  outputs = { self, nixpkgs, homelab-config, comma, dotfiles }:
     let
       nixpkgsPath = "${nixpkgs}";
       cacheHostname = "cache.nix-cache";
@@ -38,9 +36,9 @@
             inherit pkgs nixpkgsPath cacheHostname;
             tag = self.sourceInfo.rev;
             homeManagerConfig = { username, homeDirectory }:
-              home-manager.lib.homeManagerConfiguration {
+              dotfiles.lib.builtHomeManagerModule {
                 inherit system username homeDirectory;
-                configuration = import ./home.nix dotfiles.homeManagerModule;
+                configuration = import ./home.nix;
               };
           };
         in

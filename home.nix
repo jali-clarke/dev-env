@@ -1,6 +1,5 @@
-baseModule:
 { pkgs, ... }: {
-  imports = [ baseModule ];
+  dotfiles.enableAll = true;
 
   programs.git = {
     userName = "jali-clarke";

@@ -13,13 +13,42 @@ let
     exec ${pkgs.nixUnstable}/bin/nix copy --to "$DESTINATION" $OUT_PATHS
   '';
 
-  direnvConfig = homeManagerConfigWithUser.config.xdg.configFile."direnv/direnvrc";
-  gitConfig = homeManagerConfigWithUser.config.xdg.configFile."git/config";
-  vscodeConfig = homeManagerConfigWithUser.config.home.file."/root/.config/Code/User/settings.json";
-  zshenvConfig = homeManagerConfigWithUser.config.home.file.".zshenv";
-  zshrcConfig = homeManagerConfigWithUser.config.home.file.".zshrc";
+  dotfiles = homeManagerConfigWithUser.config.dotfiles.config;
+
+  simpleFileFromDotfile = dotfile:
+    let
+      stripRoot = p: builtins.substring 1 (builtins.stringLength p) p;
+    in
+    pkgs.writeTextDir (stripRoot dotfile.target) dotfile.contents;
+
+  simpleDotfiles = map simpleFileFromDotfile [
+    dotfiles."direnv/direnvrc"
+    dotfiles."git/config"
+    dotfiles.".zshenv"
+  ];
 in
-usersFiles ++ [
+usersFiles ++ simpleDotfiles ++ [
+  (
+    pkgs.writeTextDir "${home}/.local/share/code-server/User/settings.json" dotfiles."vscode/settings".contents
+  )
+  (
+    let
+      zshrcDotfile = dotfiles.".zshrc";
+    in
+    pkgs.runCommandLocal ".zshrc" { } ''
+      # zshrcDotfile.target is guaranteed to start with a `/`
+      path=$out${zshrcDotfile.target}
+      mkdir -p "$(dirname "$path")"
+
+      # remove session vars source - it's not relevant in the container
+      ${pkgs.gnused}/bin/sed '/\.nix-profile\/etc\/profile\.d\/hm-session-vars\.sh/d' "${zshrcDotfile.file}" > "$path"
+    ''
+  )
+  (
+    pkgs.writeTextDir "${home}/.profile" ''
+      . "/${home}/.zshrc"
+    ''
+  )
   (
     pkgs.writeTextDir "etc/nix/nix.conf" ''
       auto-optimise-store = true
@@ -59,40 +88,9 @@ usersFiles ++ [
     ''
   )
   (
-    pkgs.writeTextDir "${home}/${direnvConfig.target}" direnvConfig.text
-  )
-  (
     pkgs.writeTextDir "${home}/.ghci" ''
       :set prompt "\ESC[1;32m\x03BB> \ESC[m"
       :set prompt-cont "\ESC[1;32m > \ESC[m"
-    ''
-  )
-  (
-    pkgs.writeTextDir "${home}/${gitConfig.target}" gitConfig.text
-  )
-  (
-    # can't use same approach as for direnv and git; vscodeConfig.text is null for some reason
-    pkgs.runCommandLocal "code-server-settings.json" { } ''
-      path=$out/${home}/.local/share/code-server/User/settings.json
-      mkdir -p "$(dirname "$path")"
-      cp "${vscodeConfig.source}" "$path"
-    ''
-  )
-  (
-    pkgs.writeTextDir "${home}/${zshenvConfig.target}" zshenvConfig.text
-  )
-  (
-    pkgs.runCommandLocal ".zshrc" { } ''
-      path=$out/${home}/${zshrcConfig.target}
-      mkdir -p "$(dirname "$path")"
-
-      # remove session vars source - it's not relevant in the container
-      ${pkgs.gnused}/bin/sed '/\.nix-profile\/etc\/profile\.d\/hm-session-vars\.sh/d' "${zshrcConfig.source}" > "$path"
-    ''
-  )
-  (
-    pkgs.writeTextDir "${home}/.profile" ''
-      . "/${home}/.zshrc"
     ''
   )
 ]

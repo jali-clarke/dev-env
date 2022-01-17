@@ -93,4 +93,10 @@ usersFiles ++ simpleDotfiles ++ [
       :set prompt-cont "\ESC[1;32m > \ESC[m"
     ''
   )
+  (
+    pkgs.writeTextDir "${home}/.ssh/config" ''
+      Host *
+        IdentityFile ~/.ssh/id_dev_env
+    ''
+  )
 ]

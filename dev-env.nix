@@ -24,8 +24,8 @@ let
     ln -s ${pkgs.coreutils}/bin/env /usr/bin/env
 
     mkdir -p /${home}/.ssh /${home}/.local/share/code-server
-    cp /tmp/secrets/ssh/id_rsa /${home}/.ssh
-    chmod 400 /${home}/.ssh/id_rsa
+    cp /tmp/secrets/ssh/id_dev_env* /${home}/.ssh
+    chmod 400 /${home}/.ssh/id_dev_env*
     echo -n "${cacheHostname} " >> /${home}/.ssh/known_hosts
     cat /tmp/secrets/cache_ssh_host_key/ssh_host_rsa_key.pub >> /${home}/.ssh/known_hosts
     chmod 600 /${home}/.ssh/known_hosts

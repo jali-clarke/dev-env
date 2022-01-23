@@ -43,6 +43,21 @@
         "type": "github"
       }
     },
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1642700792,
+        "narHash": "sha256-XqHrk7hFb+zBvRg6Ghl+AZDq03ov6OshJLiSWOoX5es=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "846b2ae0fc4cc943637d3d1def4454213e203cba",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -68,15 +83,14 @@
     "homelab-config": {
       "inputs": {
         "homelab-secrets": "homelab-secrets",
-        "nixos-generators": "nixos-generators",
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1642384644,
-        "narHash": "sha256-aY5Wfrvhd3JkZUW8mjNnv+Ev4M4UdldURqjpgvlg22E=",
+        "lastModified": 1642880660,
+        "narHash": "sha256-pkIEz88qa9HCpotwdXlXWezz76H0kcLMjw8xlgwGaE4=",
         "owner": "jali-clarke",
         "repo": "homelab-config",
-        "rev": "373ff9a5a3c08823af75ab3ff23f48a0a141fb2c",
+        "rev": "6e36d0b2f96932e49a633093b87967370ce8584c",
         "type": "github"
       },
       "original": {
@@ -89,54 +103,21 @@
     "homelab-secrets": {
       "inputs": {
         "agenix": "agenix",
+        "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1642381583,
-        "narHash": "sha256-HnlgyvGElyh3y/00f2kPY11cb5j/64ffdDDQNkJU6n0=",
+        "lastModified": 1642879777,
+        "narHash": "sha256-gLr9fAkfI9SbEALjouZAkGrEfxU9gA0JsTL2eMV1YTg=",
         "ref": "master",
-        "rev": "b7b128dfd6aadab1c76aff1b1628024f8fd29ced",
-        "revCount": 6,
+        "rev": "bbc75c1f9deac4c5fdc94b974676eb3cded2e6d6",
+        "revCount": 12,
         "type": "git",
         "url": "ssh://git@github.com/jali-clarke/homelab-secrets"
       },
       "original": {
         "type": "git",
         "url": "ssh://git@github.com/jali-clarke/homelab-secrets"
-      }
-    },
-    "nixlib": {
-      "locked": {
-        "lastModified": 1624753224,
-        "narHash": "sha256-ZUEcPzgU1w8ZYeEgfcpzeciYcZShQZbEfRN2tV+K2yQ=",
-        "owner": "nix-community",
-        "repo": "nixpkgs.lib",
-        "rev": "7b4dc08734c5c4703b22b9c780417042e1c8f020",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "nixpkgs.lib",
-        "type": "github"
-      }
-    },
-    "nixos-generators": {
-      "inputs": {
-        "nixlib": "nixlib",
-        "nixpkgs": "nixpkgs_2"
-      },
-      "locked": {
-        "lastModified": 1631540431,
-        "narHash": "sha256-pE1HceOp7lCdcbPGrKkVMlWWTwfQwj8NSg75w+32mdA=",
-        "owner": "nix-community",
-        "repo": "nixos-generators",
-        "rev": "5f215d70a2f1b8bc58a48ecea1f0d025450f3ae3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "nixos-generators",
-        "type": "github"
       }
     },
     "nixpkgs": {
@@ -172,22 +153,6 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1619285658,
-        "narHash": "sha256-GKbj/KKo8Z2WsEURFtWHbPI917NrUnD4H2J4lKUsSWI=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "118485230c02d13f62133bce43177ffd49495694",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_3": {
-      "locked": {
         "lastModified": 1638868208,
         "narHash": "sha256-f56OeS3//YMT8MNnb9plQUYgQpSRR3e4pah//d60m4o=",
         "owner": "nixos",
@@ -202,7 +167,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_4": {
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1632577659,
         "narHash": "sha256-86O8bpXulJinYgW/ub6D4QoCVf8LGkNLb6g548cr3DU=",
@@ -221,7 +186,7 @@
       "inputs": {
         "dotfiles": "dotfiles",
         "homelab-config": "homelab-config",
-        "nixpkgs": "nixpkgs_4",
+        "nixpkgs": "nixpkgs_3",
         "nixpkgs-unstable": "nixpkgs-unstable"
       }
     }

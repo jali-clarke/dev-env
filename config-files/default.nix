@@ -57,7 +57,7 @@ usersFiles ++ simpleDotfiles ++ [
       keep-outputs = true
       post-build-hook = ${uploadToCache}/bin/upload_to_cache
       sandbox = false
-      secret-key-files = /tmp/secrets/cache_signing_key/signing_key
+      secret-key-files = /secrets/cache_signing_key/signing_key
       substituters = ssh://root@${cacheHostname}?priority=10 https://cache.nixos.org?priority=100
     ''
   )
@@ -95,8 +95,9 @@ usersFiles ++ simpleDotfiles ++ [
   )
   (
     pkgs.writeTextDir "${home}/.ssh/config" ''
+      StrictHostKeyChecking accept-new
       Host *
-        IdentityFile ~/.ssh/id_dev_env
+        IdentityFile /secrets/ssh/id_dev_env
     ''
   )
 ]

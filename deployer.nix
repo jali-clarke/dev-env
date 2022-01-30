@@ -22,7 +22,13 @@ pkgs.writeShellScriptBin "deploy_dev_env" ''
   rm ${patchPathInRepo}
   cp ${image-patch-json-6902} ${patchPathInRepo}
   ${git} add ${patchPathInRepo}
-  ${git} commit -m "updated image to ${dev-env-image.imageNameWithTag}"
-  ${git} push
+
+  if [[ -z "$(${git} --no-pager diff HEAD)" ]]; then
+    echo "no changes to homelab-config repo, skipping commit + push"
+  else
+    ${git} commit -m "updated image to ${dev-env-image.imageNameWithTag}"
+    ${git} push
+  fi
+
   popd
 ''

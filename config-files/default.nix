@@ -1,17 +1,6 @@
-{ pkgs, nixpkgsPath, user, home, cacheHostname, homeManagerConfigWithUser }:
+{ pkgs, nixpkgsPath, user, home, homeManagerConfigWithUser }:
 let
   usersFiles = import ./users.nix { inherit pkgs user home; };
-
-  uploadToCache = pkgs.writeShellScriptBin "upload_to_cache" ''
-    set -eu
-    set -f # disable globbing
-    export IFS=' '
-
-    DESTINATION="ssh://root@${cacheHostname}"
-
-    echo "Uploading signed paths to $DESTINATION - " $OUT_PATHS
-    exec ${pkgs.nixUnstable}/bin/nix copy --to "$DESTINATION" $OUT_PATHS
-  '';
 
   dotfiles = homeManagerConfigWithUser.config.dotfiles.config;
 
@@ -47,18 +36,6 @@ usersFiles ++ simpleDotfiles ++ [
   (
     pkgs.writeTextDir "${home}/.profile" ''
       . "/${home}/.zshrc"
-    ''
-  )
-  (
-    pkgs.writeTextDir "etc/nix/nix.conf" ''
-      auto-optimise-store = true
-      experimental-features = nix-command flakes
-      keep-derivations = true
-      keep-outputs = true
-      post-build-hook = ${uploadToCache}/bin/upload_to_cache
-      sandbox = false
-      secret-key-files = /secrets/cache_signing_key/signing_key
-      substituters = ssh://root@${cacheHostname}?priority=10 https://cache.nixos.org?priority=100
     ''
   )
   (

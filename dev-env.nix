@@ -11,11 +11,22 @@ let
     homeDirectory = "/${home}";
   };
 
-  configFiles = import ./config-files { inherit pkgs nixpkgsPath user home cacheHostname homeManagerConfigWithUser; };
+  configFiles = import ./config-files { inherit pkgs nixpkgsPath user home homeManagerConfigWithUser; };
   codeServerExts = import ./extensions.nix { inherit pkgs homeManagerConfigWithUser; };
 
   restartPodScript = pkgs.writeShellScriptBin "restart_pod" ''
     exec "${pkgs.kubectl}/bin/kubectl" -n dev delete pod/$(hostname)
+  '';
+
+  uploadToCache = pkgs.writeShellScriptBin "upload_to_cache" ''
+    set -eu
+    set -f # disable globbing
+    export IFS=' '
+
+    DESTINATION="ssh://root@${cacheHostname}"
+
+    echo "Uploading signed paths to $DESTINATION - " $OUT_PATHS
+    exec ${pkgs.nixUnstable}/bin/nix copy --to "$DESTINATION" $OUT_PATHS
   '';
 
   entrypoint = pkgs.writeShellScriptBin "entrypoint" ''
@@ -69,6 +80,7 @@ let
 
   otherContents = [
     restartPodScript
+    uploadToCache
   ];
 
   contents = pkgsContents ++ otherContents ++ configFiles;
@@ -86,6 +98,7 @@ let
       "SSL_CERT_FILE=${certPath}"
       "SYSTEM_CERTIFICATE_PATH=${certPath}"
       "NIX_PATH=nixpkgs=${nixpkgsPath}"
+      "NIX_CONF_DIR=/nix-conf"
       "LOCALE_ARCHIVE=${pkgs.glibcLocales}/lib/locale/locale-archive"
     ];
   };

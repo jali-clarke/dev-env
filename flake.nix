@@ -1,13 +1,12 @@
 {
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs";
-  inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
   inputs.homelab-config.url = "github:jali-clarke/homelab-config/weedle-known-good";
 
   inputs.dotfiles.url = "github:jali-clarke/dotfiles";
   inputs.dotfiles.inputs.nixpkgs.follows = "nixpkgs";
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, homelab-config, dotfiles }:
+  outputs = { self, nixpkgs, homelab-config, dotfiles }:
     let
       nixpkgsPath = "${nixpkgs}";
       cacheHostname = "cache.nix-cache";
@@ -20,8 +19,6 @@
                 #!${final.runtimeShell} -xe
                 ${text}
               '';
-
-            comma = (import nixpkgs-unstable { inherit system; }).comma;
           };
 
           pkgs = import nixpkgs {

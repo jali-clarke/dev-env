@@ -26,7 +26,7 @@ let
     DESTINATION="ssh://root@${cacheHostname}"
 
     echo "Uploading signed paths to $DESTINATION - " $OUT_PATHS
-    exec ${pkgs.nixUnstable}/bin/nix copy --to "$DESTINATION" $OUT_PATHS
+    exec ${pkgs.nix}/bin/nix copy --to "$DESTINATION" $OUT_PATHS
   '';
 
   entrypoint = pkgs.writeShellScriptBin "entrypoint" ''
@@ -66,7 +66,7 @@ let
     pkgs.kubernetes-helm
     pkgs.less
     pkgs.man
-    pkgs.nixFlakes
+    pkgs.nix
     pkgs.nix-direnv
     pkgs.nixos-generators
     pkgs.nmon

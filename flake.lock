@@ -2,7 +2,7 @@
   "nodes": {
     "agenix": {
       "inputs": {
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs"
       },
       "locked": {
         "lastModified": 1637439787,
@@ -27,11 +27,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1644081631,
-        "narHash": "sha256-JDuMI2hB8c0GQ6L+L/NDgsYjQ1APO8d2lVBiwmIwqso=",
+        "lastModified": 1644517672,
+        "narHash": "sha256-Gj4G2drzizUxe3HBm3C77XMLyVwCG84CQAKsuIoIHyQ=",
         "owner": "jali-clarke",
         "repo": "dotfiles",
-        "rev": "471b7d52cd270ab29a93aa3d5cffaea0d0cfff09",
+        "rev": "7bcca2d44c42e02cf59b1943f979369ac2050fe5",
         "type": "github"
       },
       "original": {
@@ -72,7 +72,10 @@
     },
     "home-manager": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": [
+          "dotfiles",
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1643933536,
@@ -93,7 +96,7 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "homelab-secrets": "homelab-secrets",
-        "nixpkgs": "nixpkgs_4"
+        "nixpkgs": "nixpkgs_3"
       },
       "locked": {
         "lastModified": 1644361194,
@@ -114,7 +117,7 @@
       "inputs": {
         "agenix": "agenix",
         "flake-utils": "flake-utils_2",
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
         "lastModified": 1644080207,
@@ -154,27 +157,13 @@
         "type": "github"
       },
       "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
-      }
-    },
-    "nixpkgs_3": {
-      "locked": {
-        "lastModified": 1643653624,
-        "narHash": "sha256-+8hLMsQrZ2rkvcEtEId6HMe8GPxVb5ga+Vh1fdsqJDU=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "a529f0c125a78343b145a8eb2b915b0295e4f459",
-        "type": "github"
-      },
-      "original": {
         "owner": "NixOS",
         "ref": "nixpkgs-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
     },
-    "nixpkgs_4": {
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1644278373,
         "narHash": "sha256-9riYZyVing7OQUUWELSojlbt9u0xDh0Xm5Eg8FQn0fc=",
@@ -190,7 +179,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_5": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1644151317,
         "narHash": "sha256-TpXGBYCFKvEN7Q+To45rn4kqTbLPY4f56rF6ymUGGRE=",
@@ -210,7 +199,7 @@
       "inputs": {
         "dotfiles": "dotfiles",
         "homelab-config": "homelab-config",
-        "nixpkgs": "nixpkgs_5"
+        "nixpkgs": "nixpkgs_4"
       }
     }
   },

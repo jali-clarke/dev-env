@@ -13,6 +13,7 @@ let
   simpleDotfiles = map simpleFileFromDotfile [
     dotfiles."direnv/direnvrc"
     dotfiles."git/config"
+    dotfiles."nix/registry"
     dotfiles.".zshenv"
   ];
 in
@@ -43,25 +44,6 @@ usersFiles ++ simpleDotfiles ++ [
       ip      0       IP              # internet protocol, pseudo protocol number
       icmp    1       ICMP            # internet control message protocol
       igmp    2       IGMP            # Internet Group Management
-    ''
-  )
-  (
-    pkgs.writeTextDir "${home}/.config/nix/registry.json" ''
-      {
-        "flakes": [
-          {
-            "from": {
-              "id": "nixpkgs",
-              "type": "indirect"
-            },
-            "to": {
-              "path": "${nixpkgsPath}",
-              "type": "path"
-            }
-          }
-        ],
-        "version": 2
-      }
     ''
   )
   (

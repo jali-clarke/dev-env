@@ -68,6 +68,7 @@ let
     pkgs.man
     pkgs.nix
     pkgs.nix-direnv
+    pkgs.nix-tree
     pkgs.nixos-generators
     pkgs.nmon
     pkgs.oh-my-zsh

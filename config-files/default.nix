@@ -1,4 +1,4 @@
-{ pkgs, nixpkgsPath, user, home, homeManagerConfigWithUser }:
+{ pkgs, user, home, homeManagerConfigWithUser }:
 let
   usersFiles = import ./users.nix { inherit pkgs user home; };
 

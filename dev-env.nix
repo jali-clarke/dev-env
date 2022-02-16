@@ -1,4 +1,4 @@
-{ pkgs, nixpkgsPath, tag, cacheHostname, homeManagerConfig }:
+{ pkgs, tag, cacheHostname, homeManagerConfig }:
 let
   inherit (pkgs) buildPackages dockerTools lib;
 
@@ -11,7 +11,7 @@ let
     homeDirectory = "/${home}";
   };
 
-  configFiles = import ./config-files { inherit pkgs nixpkgsPath user home homeManagerConfigWithUser; };
+  configFiles = import ./config-files { inherit pkgs user home homeManagerConfigWithUser; };
   codeServerExts = import ./extensions.nix { inherit pkgs homeManagerConfigWithUser; };
 
   restartPodScript = pkgs.writeShellScriptBin "restart_pod" ''
@@ -97,7 +97,7 @@ let
       "HOME=/${home}"
       "SSL_CERT_FILE=${certPath}"
       "SYSTEM_CERTIFICATE_PATH=${certPath}"
-      "NIX_PATH=nixpkgs=${nixpkgsPath}"
+      "NIX_PATH=nixpkgs=${pkgs.path}"
       "NIX_CONF_DIR=/nix-conf"
       "LOCALE_ARCHIVE=${pkgs.glibcLocales}/lib/locale/locale-archive"
     ];

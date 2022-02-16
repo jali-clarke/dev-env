@@ -8,7 +8,6 @@
 
   outputs = { self, nixpkgs, homelab-config, dotfiles }:
     let
-      nixpkgsPath = "${nixpkgs}";
       cacheHostname = "cache.nix-cache";
 
       outputs' = system:
@@ -32,7 +31,7 @@
 
           # assertion will fail if the source tree is not clean
           builtImage = assert self.sourceInfo ? rev; import ./dev-env.nix {
-            inherit pkgs nixpkgsPath cacheHostname;
+            inherit pkgs cacheHostname;
             tag = self.sourceInfo.rev;
             homeManagerConfig = { username, homeDirectory }:
               dotfiles.lib.builtHomeManagerModule {

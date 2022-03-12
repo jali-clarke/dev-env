@@ -28,11 +28,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1645069408,
-        "narHash": "sha256-TNgGlT1TWrNipMw/RZOlDE3rywc+5Jg0I2UzlVmU70s=",
+        "lastModified": 1646860975,
+        "narHash": "sha256-LF2CKz7b6m3p1aL5CtL4oQ32tu9hCiyQgUbBZhonRWE=",
         "owner": "jali-clarke",
         "repo": "dotfiles",
-        "rev": "73f133d247e3328224f3c3b7fdb4473cb461652f",
+        "rev": "ef99d0f57929c847b93b72a0c908e6c46c2d1885",
         "type": "github"
       },
       "original": {
@@ -232,11 +232,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1644151317,
-        "narHash": "sha256-TpXGBYCFKvEN7Q+To45rn4kqTbLPY4f56rF6ymUGGRE=",
+        "lastModified": 1646955661,
+        "narHash": "sha256-AYLta1PubJnrkv15+7G+6ErW5m9NcI9wSdJ+n7pKAe0=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "942b0817e898262cc6e3f0a5f706ce09d8f749f1",
+        "rev": "e9545762b032559c27d8ec9141ed63ceca1aa1ac",
         "type": "github"
       },
       "original": {

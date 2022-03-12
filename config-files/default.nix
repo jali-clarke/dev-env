@@ -4,35 +4,33 @@ let
 
   dotfiles = homeManagerConfigWithUser.config.dotfiles.config;
 
-  simpleFileFromDotfile = dotfile:
+  simpleFileFromDotfile = filename:
     let
+      dotfile = dotfiles.${filename};
       stripRoot = p: builtins.substring 1 (builtins.stringLength p) p;
     in
     pkgs.writeTextDir (stripRoot dotfile.target) dotfile.contents;
 
-  simpleDotfiles = map simpleFileFromDotfile [
-    dotfiles."direnv/direnvrc"
-    dotfiles."git/config"
-    dotfiles."nix/registry"
-    dotfiles.".zshenv"
-  ];
+  zshDotfile = filename:
+    let
+      zshDotfile = dotfiles.${filename};
+    in
+      pkgs.runCommandLocal filename { } ''
+        # zshDotfile is guaranteed to start with a `/`
+        path=$out${zshDotfile.target}
+        mkdir -p "$(dirname "$path")"
+
+        # remove session vars source - it's not relevant in the container
+        ${pkgs.gnused}/bin/sed '/\.nix-profile\/etc\/profile\.d\/hm-session-vars\.sh/d' "${zshDotfile.file}" > "$path"
+      '';
+
+  simpleDotfiles = map simpleFileFromDotfile [ "direnv/direnvrc" "git/config" "nix/registry" ];
+
+  zshDotfiles = map zshDotfile [ ".zshrc" ".zshenv" ];
 in
-usersFiles ++ simpleDotfiles ++ [
+usersFiles ++ simpleDotfiles ++ zshDotfiles ++ [
   (
     pkgs.writeTextDir "${home}/.local/share/code-server/User/settings.json" dotfiles."vscode/settings".contents
-  )
-  (
-    let
-      zshrcDotfile = dotfiles.".zshrc";
-    in
-    pkgs.runCommandLocal ".zshrc" { } ''
-      # zshrcDotfile.target is guaranteed to start with a `/`
-      path=$out${zshrcDotfile.target}
-      mkdir -p "$(dirname "$path")"
-
-      # remove session vars source - it's not relevant in the container
-      ${pkgs.gnused}/bin/sed '/\.nix-profile\/etc\/profile\.d\/hm-session-vars\.sh/d' "${zshrcDotfile.file}" > "$path"
-    ''
   )
   (
     pkgs.writeTextDir "${home}/.profile" ''

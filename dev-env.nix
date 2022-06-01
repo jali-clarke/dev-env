@@ -45,6 +45,7 @@ let
   '';
 
   pkgsContents = [
+    pkgs.bash
     pkgs.comma
     pkgs.coreutils
     pkgs.curl

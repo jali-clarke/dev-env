@@ -32,11 +32,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1652797184,
-        "narHash": "sha256-gwkMTLGRd9YOQNaOznVlnbkkFoH6bzFp6VFS1ksX7z8=",
+        "lastModified": 1654354060,
+        "narHash": "sha256-+uteEmT3RNcohfiqpkyzln+d4NoZwBRk1gK4cHigE+Q=",
         "owner": "jali-clarke",
         "repo": "dotfiles",
-        "rev": "0e35f40818811d212fcbed0c094debae0b9cd768",
+        "rev": "c6d377b5165a08502899188923f8608e2d35f120",
         "type": "github"
       },
       "original": {
@@ -117,11 +117,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1646559628,
-        "narHash": "sha256-WDoqxH/IPTV8CkI15wwzvXYgXq9UPr8xd8WKziuaynw=",
+        "lastModified": 1654113406,
+        "narHash": "sha256-70esZvhal+FsyU89mJRcAb+cDGHKt0sgZ6MlRr9Cplg=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "afe96e7433c513bf82375d41473c57d1f66b4e68",
+        "rev": "684e85d01d333be91c4875baebb05b93c7d2ffaa",
         "type": "github"
       },
       "original": {
@@ -238,11 +238,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1646955661,
-        "narHash": "sha256-AYLta1PubJnrkv15+7G+6ErW5m9NcI9wSdJ+n7pKAe0=",
+        "lastModified": 1654245945,
+        "narHash": "sha256-PV6MZ+HuNnyLxQGa2rwt0BmCRkQS2xqhc+SeJLQM+WU=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e9545762b032559c27d8ec9141ed63ceca1aa1ac",
+        "rev": "442db9429b9fbdb6352cfb937afc8ecccfe2633f",
         "type": "github"
       },
       "original": {

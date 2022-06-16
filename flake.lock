@@ -32,11 +32,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1654354060,
-        "narHash": "sha256-+uteEmT3RNcohfiqpkyzln+d4NoZwBRk1gK4cHigE+Q=",
+        "lastModified": 1655346474,
+        "narHash": "sha256-A4DGDmR8cmyx8IxM8Eg05v55viYLdsOaWAE54KrXNPI=",
         "owner": "jali-clarke",
         "repo": "dotfiles",
-        "rev": "c6d377b5165a08502899188923f8608e2d35f120",
+        "rev": "58bc6a9a7f3a93889759fbf48b6ba1b195e265e4",
         "type": "github"
       },
       "original": {
@@ -51,11 +51,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1652669513,
-        "narHash": "sha256-/BukA6lO/C6ndGPKkXJ9ttBQDi0YAS47KVxcQOlj+Zo=",
+        "lastModified": 1655346408,
+        "narHash": "sha256-MRA9D9YRfZ+15sJc7x7hmoR6yfnnLQ1Pw3hvJ7swy74=",
         "owner": "jali-clarke",
         "repo": "flake-templates",
-        "rev": "74dd437634d502ba183d68aa13f132ea6e7852b2",
+        "rev": "c5ab5378a9c4e79d666ed14ed60e6625adbd071d",
         "type": "github"
       },
       "original": {

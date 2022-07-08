@@ -32,11 +32,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1655662004,
-        "narHash": "sha256-Xqzh7l9ATqVJVvJCVyiUb7d+1is1yuHuqIbmXPi7MlQ=",
+        "lastModified": 1657288353,
+        "narHash": "sha256-HwL9+LO0tPeIsX5CIAFeun6c54GhorbCvO5tAm6UxBw=",
         "owner": "jali-clarke",
         "repo": "dotfiles",
-        "rev": "c7a8cd5ed1c5b0490683cf550c43ca5e75b4b970",
+        "rev": "568eed6127e106b0e458a7503c2884cc6ab18cb6",
         "type": "github"
       },
       "original": {

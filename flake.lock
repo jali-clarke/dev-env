@@ -32,11 +32,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1657288353,
-        "narHash": "sha256-HwL9+LO0tPeIsX5CIAFeun6c54GhorbCvO5tAm6UxBw=",
+        "lastModified": 1658852328,
+        "narHash": "sha256-yHAUwYQaLtwFj7VVtRZcWYx8iR4Fra19jBlYZgKuL68=",
         "owner": "jali-clarke",
         "repo": "dotfiles",
-        "rev": "568eed6127e106b0e458a7503c2884cc6ab18cb6",
+        "rev": "3db3f46b665a58a118f010898e30ef92035c0a63",
         "type": "github"
       },
       "original": {
@@ -114,14 +114,15 @@
         "nixpkgs": [
           "dotfiles",
           "nixpkgs"
-        ]
+        ],
+        "utils": "utils"
       },
       "locked": {
-        "lastModified": 1654113406,
-        "narHash": "sha256-70esZvhal+FsyU89mJRcAb+cDGHKt0sgZ6MlRr9Cplg=",
+        "lastModified": 1658751516,
+        "narHash": "sha256-Y/3dHoTjbvYBtWd+TTBQJUIgDPO9d+Gqt05C5dyR7E4=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "684e85d01d333be91c4875baebb05b93c7d2ffaa",
+        "rev": "dbed4c794d20d51027fc1107f063ec5be027dafc",
         "type": "github"
       },
       "original": {
@@ -257,6 +258,21 @@
         "dotfiles": "dotfiles",
         "homelab-config": "homelab-config",
         "nixpkgs": "nixpkgs_4"
+      }
+    },
+    "utils": {
+      "locked": {
+        "lastModified": 1653893745,
+        "narHash": "sha256-0jntwV3Z8//YwuOjzhV2sgJJPt+HY6KhU7VZUL0fKZQ=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "1ed9fb1935d260de5fe1c2f7ee0ebaae17ed2fa1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
       }
     }
   },
